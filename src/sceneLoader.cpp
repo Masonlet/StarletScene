@@ -140,7 +140,7 @@ bool SceneLoader::saveScene(const Scene& scene) {
 			/*     param1.x == 2)*/ "Directional";
 
 		file << "light, "
-			<< light.path << ", "
+			<< light.name << ", "
 			<< camType << ", "
 			<< light.pos.x << " " << light.pos.y << " " << light.pos.z << ", "
 			<< light.diffuse.x << " " << light.diffuse.y << " " << light.diffuse.z << " " << light.diffuse.w << ", "

@@ -73,9 +73,9 @@ private:
 
   template <typename T, typename MapT>
   bool addObjectData(MapT& map, const T& data, const char* type) {
-    if (data.path.empty()) return error("Scene", "addEntity", std::string(type) + " name is empty");
-    std::pair<typename MapT::iterator, bool> res = map.emplace(data.path, data);
-    if (!res.second) return error("Scene", "addObject", std::string(type) + " name already used: " + data.path);
+    if (data.name.empty()) return error("Scene", "addEntity", std::string(type) + " name is empty");
+    std::pair<typename MapT::iterator, bool> res = map.emplace(data.name, data);
+    if (!res.second) return error("Scene", "addObject", std::string(type) + " name already used: " + data.name);
     return true;
   }
 
