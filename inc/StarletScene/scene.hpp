@@ -1,12 +1,12 @@
 #pragma once
 
-#include "starletparsers/scene/model.hpp"
-#include "starletparsers/scene/light.hpp"
-#include "starletparsers/scene/camera.hpp"
-#include "starletparsers/scene/grid.hpp"
-#include "starletparsers/scene/textureData.hpp"
-#include "starletparsers/scene/textureConnection.hpp"
-#include "starletparsers/scene/primitive.hpp"
+#include "objects/model.hpp"
+#include "objects/light.hpp"
+#include "objects/camera.hpp"
+#include "objects/grid.hpp"
+#include "objects/textureData.hpp"
+#include "objects/textureConnection.hpp"
+#include "objects/primitive.hpp"
 #include "starletparsers/utils/log.hpp"
 #include <map>
 #include <string>
@@ -46,6 +46,7 @@ public:
     std::map<std::string, T>& map = getObjects<T>();
     if (index >= map.size()) return error("Scene", "getObjectByIndex", std::string(typeName<T>()) + " not found: " + std::to_string(index));
     typename std::map<std::string, T>::iterator it = std::next(map.begin(), index);
+		if (it == map.end()) return error("Scene", "getObjectByIndex", std::string(typeName<T>()) + " not found: " + std::to_string(index));
     out = &it->second;
     return true;
   }
