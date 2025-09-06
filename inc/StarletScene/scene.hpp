@@ -7,7 +7,7 @@
 #include "objects/textureData.hpp"
 #include "objects/textureConnection.hpp"
 #include "objects/primitive.hpp"
-#include "starletparsers/utils/log.hpp"
+#include "StarletParsers/utils/log.hpp"
 #include <map>
 #include <string>
 #include <iterator>
