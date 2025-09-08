@@ -1,7 +1,7 @@
 #include "StarletMath/vec4.hpp"
 #include "StarletScene/objects/colour.hpp"
 #include "StarletScene/parsers/colourParser.hpp"
-#include "StarletParsers/common/parserUtils.hpp"
+#include "StarletParsers/parserUtils.hpp"
 #include "StarletParsers/utils/log.hpp"
 
 static bool parseNumericColour(const unsigned char*& p, Vec4& out) {

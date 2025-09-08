@@ -1,7 +1,7 @@
 #include "StarletScene/objects/primitive.hpp"
 #include "StarletScene/parsers/primitiveParser.hpp"
 #include "StarletScene/parsers/colourParser.hpp"
-#include "StarletParsers/common/parserUtils.hpp"
+#include "StarletParsers/parserUtils.hpp"
 
 bool parseTriangle(const unsigned char*& p, Primitive& out) {
   PARSE_STRING_OR(return false, p, out.name, 64, "triangle name");

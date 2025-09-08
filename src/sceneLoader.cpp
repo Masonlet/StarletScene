@@ -6,8 +6,8 @@
 #include "StarletScene/parsers/gridParser.hpp"
 #include "StarletScene/parsers/textureParser.hpp"
 #include "StarletScene/parsers/primitiveParser.hpp"
-#include "StarletParsers/common/fileParser.hpp"
-#include "StarletParsers/common/parserUtils.hpp"
+#include "StarletParsers/fileParser.hpp"
+#include "StarletParsers/parserUtils.hpp"
 #include "StarletParsers/utils/log.hpp"
 #include <string>
 #include <fstream>

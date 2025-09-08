@@ -1,7 +1,7 @@
 #include "StarletScene/objects/grid.hpp"
 #include "StarletScene/parsers/gridParser.hpp"
 #include "StarletScene/parsers/colourParser.hpp"
-#include "StarletParsers/common/parserUtils.hpp"
+#include "StarletParsers/parserUtils.hpp"
 
 bool parseGrid(const unsigned char*& p, Grid& out) {
   PARSE_OR(return false, parseUInt, out.count, "cubeGrid count");

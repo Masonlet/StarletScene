@@ -1,6 +1,6 @@
 #include "StarletScene/objects/camera.hpp"
 #include "StarletScene/parsers/cameraParser.hpp"
-#include "StarletParsers/common/parserUtils.hpp"
+#include "StarletParsers/parserUtils.hpp"
 
 bool parseCamera(const unsigned char*& p, Camera& out) {
   PARSE_OR(return false, parseBool, out.enabled, "camera enabled");

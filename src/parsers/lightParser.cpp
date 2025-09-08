@@ -1,6 +1,6 @@
 #include "StarletScene/objects/light.hpp"
 #include "StarletScene/parsers/lightParser.hpp"
-#include "StarletParsers/common/parserUtils.hpp"
+#include "StarletParsers/parserUtils.hpp"
 #include "StarletParsers/utils/log.hpp"
 
 static bool parseLightType(const unsigned char*& p, unsigned int& typeOut) {
