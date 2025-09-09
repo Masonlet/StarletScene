@@ -19,5 +19,5 @@ struct Model {
 	static const unsigned int NUM_TEXTURES = 4;
 	std::string textureNames[NUM_TEXTURES]{ "" };
 	float textureMixRatio[NUM_TEXTURES]{ 1.0f, 0.0f, 0.0f, 0.0f };
-	Vec2 textureTiling{ 1.0f, 1.0f };
+	Vec2<float> textureTiling{ 1.0f, 1.0f };
 };
