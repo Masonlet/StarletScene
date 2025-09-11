@@ -16,7 +16,7 @@
 bool SceneLoader::loadScene(Scene& scene, const std::string& path) {
 	std::string src{};
 	if (!loadFile(src, path)) return error("SceneLoader", "loadScene", "Failed to load path: " + path);
-		
+
 	const unsigned char* p = reinterpret_cast<const unsigned char*>(src.c_str());
 	while (*p) {
 		const unsigned char* nextLine = skipToNextLine(p);
@@ -56,15 +56,17 @@ bool SceneLoader::processSceneLine(Scene& scene, const unsigned char*& p) {
 	}
 
 	bool handled{ false };
-	if      (strcmp(nameStr, "model") == 0)       handled = parseAndAddObject<Model>(scene, p, &parseModel, "model");
+	if (strcmp(nameStr, "model") == 0)            handled = parseAndAddObject<Model>(scene, p, &parseModel, "model");
 	else if (strcmp(nameStr, "light") == 0)       handled = parseAndAddObject<Light>(scene, p, &parseLight, "light");
 	else if (strcmp(nameStr, "camera") == 0)      handled = parseAndAddObject<Camera>(scene, p, &parseCamera, "camera");
-	else if (strcmp(nameStr, "cubeGrid") == 0)    handled = parseAndAddObject<Grid>(scene, p, &parseGrid, "cubeGrid");
-	else if (strcmp(nameStr, "squareGrid") == 0)  handled = parseAndAddObject<Grid>(scene, p, &parseGrid, "squareGrid");
-	else if (strcmp(nameStr, "triangle") == 0)    handled = parseAndAddObject<Primitive>(scene, p, &parseTriangle, "triangle");
 	else if (strcmp(nameStr, "texture") == 0)     handled = parseAndAddObject<TextureData>(scene, p, &parseTexture, "texture");
 	else if (strcmp(nameStr, "textureCube") == 0) handled = parseAndAddObject<TextureData>(scene, p, &parseCubeTexture, "cube texture");
 	else if (strcmp(nameStr, "textureAdd") == 0)  handled = parseAndAddObject<TextureConnection>(scene, p, &parseTextureConnection, "texture connection");
+	else if (strcmp(nameStr, "triangle") == 0)    handled = parseAndAddObject<Primitive>(scene, p, &parseTriangle, "triangle");
+	else if (strcmp(nameStr, "square") == 0)      handled = parseAndAddObject<Primitive>(scene, p, &parseSquare, "square");
+	else if (strcmp(nameStr, "cube") == 0)        handled = parseAndAddObject<Primitive>(scene, p, &parseCube, "cube");
+	else if (strcmp(nameStr, "squareGrid") == 0)  handled = parseAndAddObject<Grid>(scene, p, &parseSquareGrid, "squareGrid");
+	else if (strcmp(nameStr, "cubeGrid") == 0)    handled = parseAndAddObject<Grid>(scene, p, &parseCubeGrid, "cubeGrid");
 	return handled ? true : error("SceneManager", "processSceneLine", "Failed to handle: " + std::string(nameStr));
 }
 

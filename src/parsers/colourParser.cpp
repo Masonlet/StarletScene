@@ -28,14 +28,14 @@ static bool parseNumericColour(const unsigned char*& p, Vec4& out) {
 	return false;
 }
 
-static bool parseSpecialColour(const char* name, ColourMode & modeOut) {
+static bool parseSpecialColour(const char* name, ColourMode& modeOut) {
 	if (strcmp(name, "Random") == 0) modeOut = ColourMode::Random;
 	else if (strcmp(name, "Rainbow") == 0) modeOut = ColourMode::VerticalGradient;
 	else if (strcmp(name, "PLY") == 0) modeOut = ColourMode::PLYColour;
 	else return false;
 	return true;
 }
-static bool parseNamedColour(const unsigned char*& p, Vec4 & colour, ColourMode & mode) {
+static bool parseNamedColour(const unsigned char*& p, Vec4& colour, ColourMode& mode) {
 	unsigned char input[64]{};
 	if (!parseToken(p, input, sizeof(input)) || !p) return false;
 
