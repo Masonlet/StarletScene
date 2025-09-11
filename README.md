@@ -1,5 +1,5 @@
 # StarletScene
-A lightweight scene &amp; scene management library for Starlet projects designed with Vulkan and OpenGL engines in mind.
+A lightweight scene &amp; scene management library for Starlet projects designed with OpenGL engines in mind.
 
 ## Features
 - **Scene Objects** : `Camera`, `Model`, `Light`, `Grid`, `Texture`, `TextureConnection`, `Primitive`
