@@ -19,11 +19,3 @@ source_group(TREE ${SCENE_INC_DIR} PREFIX "Header Files" FILES ${SCENE_HEADERS})
 target_sources(${SCENE_NAME} PUBLIC ${SCENE_HEADERS} PRIVATE ${SCENE_SRC})
 
 target_include_directories(${SCENE_NAME} PUBLIC $<BUILD_INTERFACE:${SCENE_INC_DIR}> $<INSTALL_INTERFACE:include>)
-
-include(FetchContent)
-FetchContent_Declare(StarletParsers GIT_REPOSITORY https://github.com/masonlet/starletparsers.git GIT_TAG main)
-FetchContent_MakeAvailable(StarletParsers)
-target_link_libraries(${SCENE_NAME} PUBLIC StarletParsers)
-
-set_property(GLOBAL PROPERTY USE_FOLDERS ON)
-set_property(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER "External")
