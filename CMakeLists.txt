@@ -13,7 +13,7 @@ if(NOT TARGET ${SCENE_NAME})
   source_group(TREE ${SCENE_SRC_DIR} PREFIX "Source Files" FILES ${SCENE_SRC})
   source_group(TREE ${SCENE_INC_DIR} PREFIX "Header Files" FILES ${SCENE_HEADERS})
 
-  target_sources(${SCENE_NAME} PUBLIC ${SCENE_HEADERS} PRIVATE ${SCENE_SRC})
+  target_sources(${SCENE_NAME} PRIVATE ${SCENE_SRC} ${SCENE_HEADERS})
   target_include_directories(${SCENE_NAME} PUBLIC $<BUILD_INTERFACE:${SCENE_INC_DIR}> $<INSTALL_INTERFACE:include>)
   target_link_libraries(${SCENE_NAME} PUBLIC StarletParsers)
 endif()
