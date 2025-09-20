@@ -33,6 +33,17 @@ public:
   const std::map<std::string, T>& getObjects() const { return getObjects(static_cast<T*>(nullptr)); }
 
   template <typename T>
+  T* getObjectByName(const std::string& objName) {
+    std::map<std::string, T>& map = getObjects<T>();
+    typename std::map<std::string, T>::iterator it = map.find(objName);
+    if (it == map.end()) {
+      error("Scene", "getObjectByName", std::string(typeName<T>()) + " not found: " + objName);
+      return nullptr;
+    }
+    return &it->second;
+	}
+
+  template <typename T>
   bool getObjectByName(const std::string& objName, T*& out) {
     std::map<std::string, T>& map = getObjects<T>();
     typename std::map<std::string, T>::iterator it = map.find(objName);
