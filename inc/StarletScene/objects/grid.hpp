@@ -17,6 +17,6 @@ struct Grid {
 	unsigned int count{ 1 };
 	float spacing{ 1.0f };
 	Transform transform;
-	Vec4 colour{ 1.0f };
+	Vec4<float> colour{ 1.0f };
 	ColourMode colourMode{ ColourMode::Solid };
 };

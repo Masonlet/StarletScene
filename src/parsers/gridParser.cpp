@@ -9,7 +9,7 @@ bool parseGrid(const unsigned char*& p, Grid& out) {
   PARSE_STRING_OR(return false, p, out.name, 64, "grid name");
   PARSE_OR(return false, parseUInt, out.count, "grid count");
   PARSE_OR(return false, parseFloat, out.spacing, "grid spacing");
-  Vec3 temp;
+  Vec3<float> temp;
   PARSE_OR(return false, parseVec3, temp, "grid start position");
   out.transform.pos = { temp, 1.0f };
   PARSE_OR(return false, parseVec3, out.transform.rot, "grid rotation");

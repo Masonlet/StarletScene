@@ -4,7 +4,7 @@
 #include "StarletParsers/parserUtils.hpp"
 #include "StarletParsers/utils/log.hpp"
 
-static bool parseNumericColour(const unsigned char*& p, Vec4& out) {
+static bool parseNumericColour(const unsigned char*& p, Vec4<float>& out) {
 	const unsigned char* original = p;
 	if (parseVec4(p, out)) {
 		if (out.x > 1.0f) out.x /= 255.0f;
@@ -15,7 +15,7 @@ static bool parseNumericColour(const unsigned char*& p, Vec4& out) {
 	}
 
 	p = original;
-	Vec3 rgb;
+	Vec3<float> rgb;
 	if (parseVec3(p, rgb)) {
 		out = { rgb.x, rgb.y, rgb.z, 1.0f };
 		if (out.x > 1) out.x /= 255.f;
@@ -35,7 +35,7 @@ static bool parseSpecialColour(const char* name, ColourMode& modeOut) {
 	else return false;
 	return true;
 }
-static bool parseNamedColour(const unsigned char*& p, Vec4& colour, ColourMode& mode) {
+static bool parseNamedColour(const unsigned char*& p, Vec4<float>& colour, ColourMode& mode) {
 	unsigned char input[64]{};
 	if (!parseToken(p, input, sizeof(input)) || !p) return false;
 
@@ -51,7 +51,7 @@ static bool parseNamedColour(const unsigned char*& p, Vec4& colour, ColourMode& 
 	return true;
 }
 
-bool parseColour(const unsigned char*& p, Vec4& colourOut, ColourMode& modeOut) {
+bool parseColour(const unsigned char*& p, Vec4<float>& colourOut, ColourMode& modeOut) {
 	const unsigned char* original = p;
 	if (parseNumericColour(p, colourOut)) return true;
 	p = original;
