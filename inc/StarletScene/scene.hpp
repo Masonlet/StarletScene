@@ -1,19 +1,12 @@
 #pragma once
 
-#include "components/model.hpp"
-#include "components/light.hpp"
-#include "components/camera.hpp"
-#include "components/grid.hpp"
-#include "components/textureData.hpp"
-#include "components/textureConnection.hpp"
-#include "components/primitive.hpp"
+#include "components/component.hpp"
+
 #include "StarletParsers/utils/log.hpp"
-#include "StarletMath/vec3.hpp"
-#include "StarletMath/transform.hpp"
+
 #include <unordered_map>
 #include <vector>
 #include <string>
-#include <iterator>
 #include <stdexcept>
 #include <memory>
 
@@ -63,34 +56,54 @@ public:
 
 	template<typename T>
 	std::vector<std::pair<StarEntity, T*>> getEntitiesOfType() const {
-		std::vector<std::pair<StarEntity, T*>> result;
+		std::vector<std::pair<StarEntity, T*>> entitiesOut;
 
 		for (auto& [entity, comps] : entityComponents) {
 			auto it = comps.find(typeid(T).hash_code());
-			if (it != comps.end())  result.emplace_back(entity, static_cast<T*>(it->second.get()));
+			if (it != comps.end()) entitiesOut.emplace_back(entity, static_cast<T*>(it->second.get()));
 		}
-		return result;
+		return entitiesOut;
 	}
 
 	template<typename T>
-	std::vector<T*> getComponentsOfType() const {
+	std::vector<T*> getComponentsOfType() {
 		std::vector<T*> components;
-		for (const auto& [entity, comps] : entityComponents) {
+		for (auto& [entity, comps] : entityComponents) {
 			auto it = comps.find(typeid(T).hash_code());
 			if (it != comps.end()) components.push_back(static_cast<T*>(it->second.get()));
 		}
 		return components;
 	}
+	template<typename T>
+	std::vector<const T*> getComponentsOfType() const {
+		std::vector<const T*> components;
+		for (const auto& [entity, comps] : entityComponents) {
+			auto it = comps.find(typeid(T).hash_code());
+			if (it != comps.end()) components.push_back(static_cast<const T*>(it->second.get()));
+		}
+		return components;
+	}
 
 	template<typename T>
-	T* getComponentByName(const std::string& name) const {
+	T* getComponentByName(const std::string& name) {
 		for (T* comp : getComponentsOfType<T>()) if (comp->name == name) return comp;
+		return nullptr;
+	}
+	template<typename T>
+	const T* getComponentByName(const std::string& name) const {
+		for (const T* comp : getComponentsOfType<const T>()) if (comp->name == name) return comp;
 		return nullptr;
 	}
 
 	template<typename T>
-	T* getComponentByIndex(const size_t index) const {
+	T* getComponentByIndex(const size_t index) {
 		auto comps = getComponentsOfType<T>();
+		if (index < comps.size()) return comps[index];
+		return nullptr;
+	}
+	template<typename T>
+	const T* getComponentByIndex(const size_t index) const {
+		auto comps = getComponentsOfType<const T>();
 		if (index < comps.size()) return comps[index];
 		return nullptr;
 	}

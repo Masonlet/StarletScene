@@ -1,6 +1,7 @@
 #pragma once
 
 #include "component.hpp"
+
 #include "StarletMath/vec3.hpp"
 
 struct Transform : public IStarComponent {

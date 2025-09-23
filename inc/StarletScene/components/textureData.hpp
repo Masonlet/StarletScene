@@ -1,7 +1,9 @@
 #pragma once
 
 #include "component.hpp"
-#include "starletmath/vec2.hpp"
+
+#include "StarletMath/vec2.hpp"
+
 #include <string>
 
 struct TextureData : public IStarComponent {

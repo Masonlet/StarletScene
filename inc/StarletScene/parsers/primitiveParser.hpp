@@ -1,6 +1,8 @@
 #pragma once
 
 struct Primitive;
+enum class PrimitiveType;
+
 template<PrimitiveType T>
 bool parsePrimitive(const unsigned char*& p, Primitive& out);
 

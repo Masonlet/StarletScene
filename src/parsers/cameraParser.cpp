@@ -1,5 +1,7 @@
-#include "StarletScene/components/camera.hpp"
 #include "StarletScene/parsers/cameraParser.hpp"
+
+#include "StarletScene/components/camera.hpp"
+
 #include "StarletParsers/parserUtils.hpp"
 
 bool parseCamera(const unsigned char*& p, Camera& out) {

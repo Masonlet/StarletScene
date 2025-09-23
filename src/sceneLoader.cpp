@@ -1,14 +1,25 @@
 #include "StarletScene/scene.hpp"
 #include "StarletScene/sceneLoader.hpp"
+
+#include "StarletScene/components/model.hpp"
+#include "StarletScene/components/light.hpp"
+#include "StarletScene/components/camera.hpp"
+#include "StarletScene/components/grid.hpp"
+#include "StarletScene/components/textureData.hpp"
+#include "StarletScene/components/textureConnection.hpp"
+#include "StarletScene/components/primitive.hpp"
+
 #include "StarletScene/parsers/modelParser.hpp"
 #include "StarletScene/parsers/lightParser.hpp"
 #include "StarletScene/parsers/cameraParser.hpp"
 #include "StarletScene/parsers/gridParser.hpp"
 #include "StarletScene/parsers/textureParser.hpp"
 #include "StarletScene/parsers/primitiveParser.hpp"
+
 #include "StarletParsers/fileParser.hpp"
 #include "StarletParsers/parserUtils.hpp"
 #include "StarletParsers/utils/log.hpp"
+
 #include <string>
 #include <fstream>
 #include <iomanip>
@@ -77,7 +88,7 @@ bool SceneLoader::saveScene(const Scene& scene) {
 	file << std::fixed << std::setprecision(3);
 
 	file << "comment, name, pos(xyz), rot(yaw pitch), fov, nearPlane farPlane, camSpeed\n";
-	for (Camera* cam : scene.getComponentsOfType<Camera>()) {
+	for (const Camera* cam : scene.getComponentsOfType<Camera>()) {
 		file << "camera, "
 				 << cam->name << ", "
 				 << cam->pos.x << " " << cam->pos.y << " " << cam->pos.z << ", "
@@ -88,7 +99,7 @@ bool SceneLoader::saveScene(const Scene& scene) {
 	}
 
 	file << "\ncomment, name, meshPath, pos(xyz), rot(xyz), scale(xyz), colour(Int, Named Coloured, Random, Rainbow, PLY), specular(rgb, power)\n";
-	for (Model* model : scene.getComponentsOfType<Model>()) {
+	for (const Model* model : scene.getComponentsOfType<Model>()) {
 		if (model->name.rfind("triangle_instance", 0) == 0 || model->name.rfind("cube_instance_", 0) == 0 || model->name.rfind("square_instance_", 0) == 0)
 			continue;
 
@@ -121,9 +132,8 @@ bool SceneLoader::saveScene(const Scene& scene) {
 		file << ", " << model->specular.x << " " << model->specular.y << " " << model->specular.z << " " << model->specular.w << "\n";
 	}
 
-
 	file << "\ncomment, name, type, pos (xyz), diffuse (rgba), attention (xyzw), direction, param1 (spotlight inner, spotlight outer), param2 (on/off)\n";
-	for (Light* light : scene.getComponentsOfType<Light>()) {
+	for (const Light* light : scene.getComponentsOfType<Light>()) {
 		if (!light->enabled) continue;
 
 		const std::string camType =

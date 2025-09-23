@@ -1,9 +1,11 @@
 #pragma once
 
 #include "component.hpp"
+#include "colour.hpp"
+
 #include "StarletMath/vec4.hpp"
 #include "StarletMath/transform.hpp"
-#include "colour.hpp"
+
 #include <string>
 
 enum class GridType {
@@ -14,7 +16,7 @@ enum class GridType {
 
 struct Grid : public IStarComponent {
 	std::string name;
-	GridType type;
+	GridType type{ GridType::Cube };
 	unsigned int count{ 1 };
 	float spacing{ 1.0f };
 	Transform transform;

@@ -1,7 +1,9 @@
-#include "StarletScene/components/primitive.hpp"
 #include "StarletScene/parsers/primitiveParser.hpp"
-#include "StarletScene/parsers/colourParser.hpp"
+
+#include "StarletScene/components/primitive.hpp"
+
 #include "StarletParsers/parserUtils.hpp"
+#include "StarletScene/parsers/colourParser.hpp"
 
 template<PrimitiveType T>
 bool parsePrimitive(const unsigned char*& p, Primitive& out) {

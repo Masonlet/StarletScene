@@ -1,8 +1,10 @@
 #pragma once
 
 #include "component.hpp"
+
 #include "StarletMath/vec3.hpp"
 #include "StarletMath/mat4.hpp"
+
 #include <string>
 
 struct Camera : public IStarComponent {

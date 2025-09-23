@@ -1,7 +1,9 @@
-#include "StarletScene/components/model.hpp"
 #include "StarletScene/parsers/modelParser.hpp"
-#include "StarletScene/parsers/colourParser.hpp"
+
+#include "StarletScene/components/model.hpp"
+
 #include "StarletParsers/parserUtils.hpp"
+#include "StarletScene/parsers/colourParser.hpp"
 
 bool parseModel(const unsigned char*& p, Model& out) {
   PARSE_OR(return false, parseBool, out.isVisible, "model enabled");

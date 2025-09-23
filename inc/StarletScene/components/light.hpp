@@ -1,9 +1,11 @@
 #pragma once
 
 #include "component.hpp"
+
 #include "StarletMath/vec2.hpp"
 #include "StarletMath/vec3.hpp"
 #include "StarletMath/vec4.hpp"
+
 #include <string>
 
 class Light : public IStarComponent {

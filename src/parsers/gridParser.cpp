@@ -1,7 +1,9 @@
-#include "StarletScene/components/grid.hpp"
 #include "StarletScene/parsers/gridParser.hpp"
-#include "StarletScene/parsers/colourParser.hpp"
+
+#include "StarletScene/components/grid.hpp"
+
 #include "StarletParsers/parserUtils.hpp"
+#include "StarletScene/parsers/colourParser.hpp"
 
 template <GridType T>
 bool parseGrid(const unsigned char*& p, Grid& out) {
