@@ -1,5 +1,5 @@
 #include "StarletMath/vec4.hpp"
-#include "StarletScene/objects/colour.hpp"
+#include "StarletScene/components/colour.hpp"
 #include "StarletScene/parsers/colourParser.hpp"
 #include "StarletParsers/parserUtils.hpp"
 #include "StarletParsers/utils/log.hpp"

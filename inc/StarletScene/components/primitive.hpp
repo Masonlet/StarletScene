@@ -1,9 +1,10 @@
 #pragma once
 
-#include <string>
-#include <StarletMath/transform.hpp>
-#include <StarletMath/vec4.hpp>
+#include "component.hpp"
+#include "StarletMath/transform.hpp"
+#include "StarletMath/vec4.hpp"
 #include "colour.hpp"
+#include <string>
 
 enum class PrimitiveType {
 	Triangle,
@@ -11,7 +12,7 @@ enum class PrimitiveType {
 	Cube
 };
 
-struct Primitive {
+struct Primitive : public IStarComponent {
 	std::string name;
 	PrimitiveType type;
 	Transform transform;

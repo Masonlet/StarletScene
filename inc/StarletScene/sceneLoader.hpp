@@ -11,9 +11,8 @@ private:
   bool processSceneLine(Scene& scene, const unsigned char*& p);
 
   template<typename T>
-  bool parseAndAddObject(Scene& scene, const unsigned char*& p, bool (*parseFN)(const unsigned char*&, T&), const char* type) {
-    T obj{};
-    if (!parseFN(p, obj)) return false;
-    return scene.addObject<T>(obj, type);
+  bool parseAndAddObject(Scene& scene, const unsigned char*& p, bool (*parseFN)(const unsigned char*&, T&), StarEntity entity) {
+    T* component = scene.addComponent<T>(entity);
+		return parseFN(p, *component);
   }
 };

@@ -1,13 +1,14 @@
 #pragma once
 
-#include "starletmath/vec2.hpp"
-#include "starletmath/vec3.hpp"
-#include "starletmath/vec4.hpp"
-#include "starletmath/mat4.hpp"
+#include "component.hpp"
+#include "StarletMath/vec2.hpp"
+#include "StarletMath/vec3.hpp"
+#include "StarletMath/vec4.hpp"
+#include "StarletMath/mat4.hpp"
 #include "colour.hpp"
 #include <string>
 
-struct Model {
+struct Model : public IStarComponent {
 	std::string name;
 	std::string meshPath;
 

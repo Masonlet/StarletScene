@@ -1,4 +1,4 @@
-#include "StarletScene/objects/camera.hpp"
+#include "StarletScene/components/camera.hpp"
 #include "StarletScene/parsers/cameraParser.hpp"
 #include "StarletParsers/parserUtils.hpp"
 

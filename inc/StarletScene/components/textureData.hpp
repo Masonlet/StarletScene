@@ -1,9 +1,10 @@
 #pragma once
 
-#include <string>
+#include "component.hpp"
 #include "starletmath/vec2.hpp"
+#include <string>
 
-struct TextureData {
+struct TextureData : public IStarComponent {
 	std::string name;
 	std::string faces[6];
 

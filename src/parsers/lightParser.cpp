@@ -1,4 +1,4 @@
-#include "StarletScene/objects/light.hpp"
+#include "StarletScene/components/light.hpp"
 #include "StarletScene/parsers/lightParser.hpp"
 #include "StarletParsers/parserUtils.hpp"
 #include "StarletParsers/utils/log.hpp"

@@ -1,4 +1,4 @@
-#include "StarletScene/objects/model.hpp"
+#include "StarletScene/components/model.hpp"
 #include "StarletScene/parsers/modelParser.hpp"
 #include "StarletScene/parsers/colourParser.hpp"
 #include "StarletParsers/parserUtils.hpp"

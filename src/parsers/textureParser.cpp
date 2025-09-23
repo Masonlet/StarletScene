@@ -1,5 +1,5 @@
-#include "StarletScene/objects/textureData.hpp"
-#include "StarletScene/objects/textureConnection.hpp"
+#include "StarletScene/components/textureData.hpp"
+#include "StarletScene/components/textureConnection.hpp"
 #include "StarletScene/parsers/textureParser.hpp"
 #include "StarletParsers/parserUtils.hpp"
 

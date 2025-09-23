@@ -1,4 +1,4 @@
-#include "StarletScene/objects/grid.hpp"
+#include "StarletScene/components/grid.hpp"
 #include "StarletScene/parsers/gridParser.hpp"
 #include "StarletScene/parsers/colourParser.hpp"
 #include "StarletParsers/parserUtils.hpp"
@@ -17,9 +17,9 @@ bool parseGrid(const unsigned char*& p, Grid& out) {
   return parseColour(p, out.colour, out.colourMode);
 }
 
-bool parseSquareGrid(const unsigned char*& p, Grid& out) {
-  return parseGrid<GridType::Square>(p, out);
+bool parseSquareGrid(const unsigned char*& p, Grid& out) { 
+  return parseGrid<GridType::Square>(p, out); 
 }
-bool parseCubeGrid(const unsigned char*& p, Grid& out) {
-  return parseGrid<GridType::Cube>(p, out);
+bool parseCubeGrid(const unsigned char*& p, Grid& out) { 
+  return parseGrid<GridType::Cube>(p, out); 
 }

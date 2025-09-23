@@ -8,12 +8,12 @@ public:
   void setBasePath(const char* path) { basePath = path; }
 
   inline Scene& getScene() { return scene; }
-  bool saveTxtScene();
+
   bool loadTxtScene(const std::string& path);
+  bool saveTxtScene();
 
 private:
-  Scene scene;
-
   std::string basePath;
+  Scene scene;
   SceneLoader loader;
 };

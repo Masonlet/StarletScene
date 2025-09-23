@@ -1,11 +1,12 @@
 #pragma once
 
-#include "starletmath/vec2.hpp"
-#include "starletmath/vec3.hpp"
-#include "starletmath/vec4.hpp"
+#include "component.hpp"
+#include "StarletMath/vec2.hpp"
+#include "StarletMath/vec3.hpp"
+#include "StarletMath/vec4.hpp"
 #include <string>
 
-class Light {
+class Light : public IStarComponent {
 public:
 	std::string name;
 

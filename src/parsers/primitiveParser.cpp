@@ -1,4 +1,4 @@
-#include "StarletScene/objects/primitive.hpp"
+#include "StarletScene/components/primitive.hpp"
 #include "StarletScene/parsers/primitiveParser.hpp"
 #include "StarletScene/parsers/colourParser.hpp"
 #include "StarletParsers/parserUtils.hpp"

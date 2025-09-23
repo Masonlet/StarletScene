@@ -1,7 +1,8 @@
 #pragma once
 
-#include "starletmath/vec4.hpp"
-#include "starletmath/transform.hpp"
+#include "component.hpp"
+#include "StarletMath/vec4.hpp"
+#include "StarletMath/transform.hpp"
 #include "colour.hpp"
 #include <string>
 
@@ -11,7 +12,7 @@ enum class GridType {
 	Model
 };
 
-struct Grid {
+struct Grid : public IStarComponent {
 	std::string name;
 	GridType type;
 	unsigned int count{ 1 };
