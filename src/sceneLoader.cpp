@@ -91,7 +91,7 @@ bool SceneLoader::saveScene(const Scene& scene) {
 	for (const Camera* cam : scene.getComponentsOfType<Camera>()) {
 		file << "camera, "
 				 << cam->name << ", "
-				 << cam->pos.x << " " << cam->pos.y << " " << cam->pos.z << ", "
+				 << cam->pos << ", "
 				 << cam->yaw << " " << cam->pitch << ", "
 				 << cam->fov << ", "
 				 << cam->nearPlane << " " << cam->farPlane << ", "
@@ -106,21 +106,17 @@ bool SceneLoader::saveScene(const Scene& scene) {
 		file << "model, "
 			<< model->name << ", "
 			<< model->meshPath << ", "
-			<< model->transform.pos.x << " " << model->transform.pos.y << " " << model->transform.pos.z << ", "
-			<< model->transform.rot.x << " " << model->transform.rot.y << " " << model->transform.rot.z << ", "
-			<< model->transform.size.x << " " << model->transform.size.y << " " << model->transform.size.z << ", ";
+			<< model->transform.pos << ", "
+			<< model->transform.rot << ", "
+			<< model->transform.size << ", ";
 
 		switch (model->colourMode) {
 		case ColourMode::Solid: {
-			int r = static_cast<int>(model->colour.x * 255.0f);
-			int g = static_cast<int>(model->colour.y * 255.0f);
-			int b = static_cast<int>(model->colour.z * 255.0f);
-			int a = static_cast<int>(model->colour.w * 255.0f);
-
-			if      (r == 255 && g == 0 && b == 0) file << "Red";
-			else if (r == 0 && g == 255 && b == 0) file << "Green";
-			else if (r == 0 && g == 0 && b == 255) file << "Blue";
-			else file << r << " " << g << " " << b << " " << a;
+			Vec4 rgba { model->colour.x * 255.0f, model->colour.y * 255.0f, model->colour.z * 255.0f, model->colour.w * 255.0f };
+			if      (rgba.r == 255 && rgba.g == 0 && rgba.b == 0 && rgba.a == 255) file << "Red";
+			else if (rgba.r == 0 && rgba.g == 255 && rgba.b == 0 && rgba.a == 255) file << "Green";
+			else if (rgba.r == 0 && rgba.g == 0 && rgba.b == 255 && rgba.a == 255) file << "Blue";
+			else file << rgba;
 			break;
 		}
 		case ColourMode::Random:           file << "Random"; break;
@@ -129,7 +125,7 @@ bool SceneLoader::saveScene(const Scene& scene) {
 		default: break;
 		}
 
-		file << ", " << model->specular.x << " " << model->specular.y << " " << model->specular.z << " " << model->specular.w << "\n";
+		file << ", " << model->specular << "\n";
 	}
 
 	file << "\ncomment, name, type, pos (xyz), diffuse (rgba), attention (xyzw), direction, param1 (spotlight inner, spotlight outer), param2 (on/off)\n";
@@ -144,11 +140,11 @@ bool SceneLoader::saveScene(const Scene& scene) {
 		file << "light, "
 			<< light->name << ", "
 			<< camType << ", "
-			<< light->pos.x << " " << light->pos.y << " " << light->pos.z << ", "
-			<< light->diffuse.x << " " << light->diffuse.y << " " << light->diffuse.z << " " << light->diffuse.w << ", "
-			<< light->attenuation.x << " " << light->attenuation.y << " " << light->attenuation.z << " " << light->attenuation.w << ", "
-			<< light->direction.x << " " << light->direction.y << " " << light->direction.z << ", "
-			<< light->param1.y << " " << "\n";
+			<< light->pos << ", "
+			<< light->diffuse << ", "
+			<< light->attenuation << ", "
+			<< light->direction << ", "
+			<< light->param1.y << "\n";
 	}
 
 	return true;
