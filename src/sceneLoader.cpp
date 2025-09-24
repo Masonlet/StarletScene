@@ -8,6 +8,7 @@
 #include "StarletScene/components/textureData.hpp"
 #include "StarletScene/components/textureConnection.hpp"
 #include "StarletScene/components/primitive.hpp"
+#include "StarletScene/components/transform.hpp"
 
 #include "StarletScene/parsers/modelParser.hpp"
 #include "StarletScene/parsers/lightParser.hpp"
@@ -68,17 +69,49 @@ bool SceneLoader::processSceneLine(Scene& scene, const unsigned char*& p) {
 
 	StarEntity entity = scene.createEntity();
 	bool handled{ false };
-	if (strcmp(nameStr, "model") == 0)            handled = parseAndAddObject<Model>(scene, p, &parseModel, entity);
-	else if (strcmp(nameStr, "light") == 0)       handled = parseAndAddObject<Light>(scene, p, &parseLight, entity);
-	else if (strcmp(nameStr, "camera") == 0)      handled = parseAndAddObject<Camera>(scene, p, &parseCamera, entity);
+	if (strcmp(nameStr, "model") == 0) {
+		Model* model = scene.addComponent<Model>(entity);
+		TransformComponent* transform = scene.addComponent<TransformComponent>(entity);
+		handled = parseModel(p, *model, *transform);
+	}
+	else if (strcmp(nameStr, "light") == 0) {
+		Light* light = scene.addComponent<Light>(entity);
+		TransformComponent* transform = scene.addComponent<TransformComponent>(entity);
+		handled = parseLight(p, *light, *transform);
+	}
+	else if (strcmp(nameStr, "camera") == 0) {
+		Camera* camera = scene.addComponent<Camera>(entity);
+		TransformComponent* transform = scene.addComponent<TransformComponent>(entity);
+		handled = parseCamera(p, *camera, *transform);
+	}
 	else if (strcmp(nameStr, "texture") == 0)     handled = parseAndAddObject<TextureData>(scene, p, &parseTexture, entity);
 	else if (strcmp(nameStr, "textureCube") == 0) handled = parseAndAddObject<TextureData>(scene, p, &parseCubeTexture, entity);
 	else if (strcmp(nameStr, "textureAdd") == 0)  handled = parseAndAddObject<TextureConnection>(scene, p, &parseTextureConnection, entity);
-	else if (strcmp(nameStr, "triangle") == 0)    handled = parseAndAddObject<Primitive>(scene, p, &parseTriangle, entity);
-	else if (strcmp(nameStr, "square") == 0)      handled = parseAndAddObject<Primitive>(scene, p, &parseSquare, entity);
-	else if (strcmp(nameStr, "cube") == 0)        handled = parseAndAddObject<Primitive>(scene, p, &parseCube, entity);
-	else if (strcmp(nameStr, "squareGrid") == 0)  handled = parseAndAddObject<Grid>(scene, p, &parseSquareGrid, entity);
-	else if (strcmp(nameStr, "cubeGrid") == 0)    handled = parseAndAddObject<Grid>(scene, p, &parseCubeGrid, entity);
+	else if (strcmp(nameStr, "triangle") == 0) {
+		Primitive* primitive = scene.addComponent<Primitive>(entity);
+		TransformComponent* transform = scene.addComponent <TransformComponent>(entity);
+		handled = parseTriangle(p, *primitive, *transform);
+	}
+	else if (strcmp(nameStr, "square") == 0) {
+		Primitive* primitive = scene.addComponent<Primitive>(entity);
+		TransformComponent* transform = scene.addComponent<TransformComponent>(entity);
+		handled = parseSquare(p, *primitive, *transform);
+	}
+	else if (strcmp(nameStr, "cube") == 0) {
+		Primitive* primitive = scene.addComponent<Primitive>(entity);
+		TransformComponent* transform = scene.addComponent<TransformComponent>(entity);
+		handled = parseSquare(p, *primitive, *transform);
+	}
+	else if (strcmp(nameStr, "squareGrid") == 0) {
+		Grid* grid = scene.addComponent<Grid>(entity);
+		TransformComponent* transform = scene.addComponent<TransformComponent>(entity);
+		handled = parseSquareGrid(p, *grid, *transform);
+	}
+	else if (strcmp(nameStr, "cubeGrid") == 0) {
+		Grid* grid = scene.addComponent<Grid>(entity);
+		TransformComponent* transform = scene.addComponent<TransformComponent>(entity);
+		handled = parseCubeGrid(p, *grid, *transform);
+	}
 	return handled ? true : error("SceneManager", "processSceneLine", "Failed to handle: " + std::string(nameStr));
 }
 
@@ -88,27 +121,39 @@ bool SceneLoader::saveScene(const Scene& scene) {
 	file << std::fixed << std::setprecision(3);
 
 	file << "comment, name, pos(xyz), rot(yaw pitch), fov, nearPlane farPlane, camSpeed\n";
-	for (const Camera* cam : scene.getComponentsOfType<Camera>()) {
+	for (const auto& pair : scene.getEntitiesOfType<Camera>()) {
+		const StarEntity entity = pair.first;
+		const Camera* cam = pair.second;
+
+		if (!scene.hasComponent<TransformComponent>(entity)) continue;
+		const TransformComponent& transform = scene.getComponent<TransformComponent>(entity);
+
 		file << "camera, "
-				 << cam->name << ", "
-				 << cam->pos << ", "
-				 << cam->yaw << " " << cam->pitch << ", "
+			   << cam->name << ", "
+			   << transform.pos << ", "
+				 << transform.rot.x << " " << transform.rot.y << ", "
 				 << cam->fov << ", "
 				 << cam->nearPlane << " " << cam->farPlane << ", "
 				 << cam->moveSpeed << "\n";
 	}
 
-	file << "\ncomment, name, meshPath, pos(xyz), rot(xyz), scale(xyz), colour(Int, Named Coloured, Random, Rainbow, PLY), specular(rgb, power)\n";
-	for (const Model* model : scene.getComponentsOfType<Model>()) {
+	file << "\ncomment, name, meshPath, pos(xyz), rot(xyz), scale(xyz), colour(Int, Named Colour, Random, Rainbow, PLY), specular(rgb, power)\n";
+	for (const auto& pair : scene.getEntitiesOfType<Model>()) {
+		const StarEntity entity = pair.first;
+		const Model* model = pair.second;
+		
 		if (model->name.rfind("triangle_instance", 0) == 0 || model->name.rfind("cube_instance_", 0) == 0 || model->name.rfind("square_instance_", 0) == 0)
 			continue;
+
+		if (!scene.hasComponent<TransformComponent>(entity)) continue;
+		const TransformComponent& transform = scene.getComponent<TransformComponent>(entity);
 
 		file << "model, "
 			<< model->name << ", "
 			<< model->meshPath << ", "
-			<< model->transform.pos << ", "
-			<< model->transform.rot << ", "
-			<< model->transform.size << ", ";
+			<< transform.pos << ", "
+			<< transform.rot << ", "
+			<< transform.size << ", ";
 
 		switch (model->colourMode) {
 		case ColourMode::Solid: {
@@ -129,7 +174,13 @@ bool SceneLoader::saveScene(const Scene& scene) {
 	}
 
 	file << "\ncomment, name, type, pos (xyz), diffuse (rgba), attention (xyzw), direction, param1 (spotlight inner, spotlight outer), param2 (on/off)\n";
-	for (const Light* light : scene.getComponentsOfType<Light>()) {
+	for (const auto& pair : scene.getEntitiesOfType<Light>()) {
+		const StarEntity entity = pair.first;
+		const Light* light = pair.second;
+
+		if (!scene.hasComponent<TransformComponent>(entity)) continue;
+		const TransformComponent& transform = scene.getComponent<TransformComponent>(entity);
+
 		if (!light->enabled) continue;
 
 		const std::string camType =
@@ -140,10 +191,10 @@ bool SceneLoader::saveScene(const Scene& scene) {
 		file << "light, "
 			<< light->name << ", "
 			<< camType << ", "
-			<< light->pos << ", "
+			<< transform.pos << ", "
 			<< light->diffuse << ", "
 			<< light->attenuation << ", "
-			<< light->direction << ", "
+			<< transform.rot << ", "
 			<< light->param1.y << "\n";
 	}
 

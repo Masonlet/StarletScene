@@ -14,7 +14,6 @@ struct Model : public IStarComponent {
 	std::string name;
 	std::string meshPath;
 
-	Transform transform;
 	Vec4<float> colour{ 1.0f }, specular{ 1.0f, 1.0f, 1.0f, 32.0f };
 	ColourMode colourMode{ ColourMode::Solid };
 	bool isVisible{ true }, isLighted{ true }, useTextures{ false };

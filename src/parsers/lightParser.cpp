@@ -1,6 +1,7 @@
 #include "StarletScene/parsers/lightParser.hpp"
 
 #include "StarletScene/components/light.hpp"
+#include "StarletScene/components/transform.hpp"
 
 #include "StarletParsers/parserUtils.hpp"
 #include "StarletParsers/utils/log.hpp"
@@ -29,14 +30,14 @@ static bool parseLightType(const unsigned char*& p, unsigned int& typeOut) {
 	return true;
 }
 
-bool parseLight(const unsigned char*& p, Light& out) {
-  PARSE_OR(return false, parseBool, out.enabled, "light enabled");
-  PARSE_STRING_OR(return false, p, out.name, 64, "light name");
-  PARSE_OR(return false, parseLightType, out.type, "light type");
-  PARSE_OR(return false, parseVec3, out.pos, "light position");
-  PARSE_OR(return false, parseVec4, out.diffuse, "light diffuse");
-  PARSE_OR(return false, parseVec4, out.attenuation, "light attenuation");
-  PARSE_OR(return false, parseVec3, out.direction, "light direction");
-  PARSE_OR(return false, parseVec2f, out.param1, "light param1");
+bool parseLight(const unsigned char*& p, Light& light, TransformComponent& transform) {
+  PARSE_OR(return false, parseBool, light.enabled, "light enabled");
+  PARSE_STRING_OR(return false, p, light.name, 64, "light name");
+  PARSE_OR(return false, parseLightType, light.type, "light type");
+  PARSE_OR(return false, parseVec3, transform.pos, "light position");
+  PARSE_OR(return false, parseVec4, light.diffuse, "light diffuse");
+  PARSE_OR(return false, parseVec4, light.attenuation, "light attenuation");
+  PARSE_OR(return false, parseVec3, transform.rot, "light direction");
+  PARSE_OR(return false, parseVec2f, light.param1, "light param1");
   return true;
 }

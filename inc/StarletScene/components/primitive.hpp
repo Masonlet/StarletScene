@@ -17,7 +17,6 @@ enum class PrimitiveType {
 struct Primitive : public IStarComponent {
 	std::string name;
 	PrimitiveType type;
-	Transform transform;
 	Vec4<float> colour;
 	ColourMode colourMode;
 };

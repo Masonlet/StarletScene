@@ -1,4 +1,6 @@
 #pragma once
 
 struct Camera;
-bool parseCamera(const unsigned char*& p, Camera& out);
+struct TransformComponent;
+
+bool parseCamera(const unsigned char*& p, Camera& out, TransformComponent& transform);

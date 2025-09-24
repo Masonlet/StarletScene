@@ -3,8 +3,10 @@
 struct Grid;
 enum class GridType;
 
-template <GridType T>
-bool parseGrid(const unsigned char*& p, Grid& out);
+struct TransformComponent;
 
-bool parseSquareGrid(const unsigned char*& p, Grid& out);
-bool parseCubeGrid(const unsigned char*& p, Grid& out);
+template <GridType T>
+bool parseGrid(const unsigned char*& p, Grid& grid, TransformComponent& transform);
+
+bool parseSquareGrid(const unsigned char*& p, Grid& grid, TransformComponent& transform);
+bool parseCubeGrid(const unsigned char*& p, Grid& grid, TransformComponent& transform);

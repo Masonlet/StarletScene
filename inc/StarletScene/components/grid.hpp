@@ -19,7 +19,6 @@ struct Grid : public IStarComponent {
 	GridType type{ GridType::Cube };
 	unsigned int count{ 1 };
 	float spacing{ 1.0f };
-	Transform transform;
 	Vec4<float> colour{ 1.0f };
 	ColourMode colourMode{ ColourMode::Solid };
 };

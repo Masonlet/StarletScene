@@ -1,5 +1,6 @@
 #pragma once
 
 struct Model;
-bool parseModel(const unsigned char*& p, Model& out);
+struct TransformComponent;
+bool parseModel(const unsigned char*& p, Model& out, TransformComponent& transform);
 

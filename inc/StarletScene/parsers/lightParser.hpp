@@ -1,4 +1,5 @@
 #pragma once
 
 struct Light;
-bool parseLight(const unsigned char*& p, Light& out);
+struct TransformComponent;
+bool parseLight(const unsigned char*& p, Light& light, TransformComponent& transform);
