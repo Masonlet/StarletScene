@@ -14,8 +14,7 @@ enum class GridType {
 	Model
 };
 
-struct Grid : public IStarComponent {
-	std::string name;
+struct Grid : public NamedComponent {
 	GridType type{ GridType::Cube };
 	unsigned int count{ 1 };
 	float spacing{ 1.0f };

@@ -14,8 +14,7 @@ enum class PrimitiveType {
 	Cube
 };
 
-struct Primitive : public IStarComponent {
-	std::string name;
+struct Primitive : public NamedComponent {
 	PrimitiveType type;
 	Vec4<float> colour;
 	ColourMode colourMode;

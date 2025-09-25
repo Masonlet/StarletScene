@@ -10,8 +10,7 @@
 
 #include <string>
 
-struct Model : public IStarComponent {
-	std::string name;
+struct Model : public NamedComponent {
 	std::string meshPath;
 
 	Vec4<float> colour{ 1.0f }, specular{ 1.0f, 1.0f, 1.0f, 32.0f };
