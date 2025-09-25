@@ -1,18 +1,22 @@
 # StarletScene
-A lightweight scene &amp; scene management library for Starlet projects designed with OpenGL engines in mind.
+A lightweight ECS-based scene &amp; scene management library for Starlet projects designed with OpenGL engines in mind.
 
 ## Features
-- **Scene Objects** : `Camera`, `Model`, `Light`, `Grid`, `Texture`, `TextureConnection`, `Primitive`
-- **Scene Containers** 
-    - `Scene` :  holds maps of Cameras, Models, Lights, Grids, Textures, TextureConnections, Primitives
-    - Helpers : `addObject<T>`, `getObjects<T>`, `getObjectByName`, `getObjectByIndex`, `getObjectCount<T>`
+- **Entity-Component System (ECS)**
+    - `Scene` : manages **entities**, each of which can hold multiple components.
+    - Core components:
+        - `Camera`, `Model`, `Light`, `Grid`, `TextureData`, `TextureConnection`, `Primitive`, `TransformComponent`, `VelocityComponent`
+    - Core systems:
+        - `CameraMoveSystem`, `CameraLookSystem`, `CameraFovSystem`, `VelocitySystem`
+
 - **Scene I/O**
     - `SceneLoader` : `loadScene` & `saveScene`
     - Human-readable format with tokens: 
         `camera`, `model`, `light`, 
         `texture`, `textureCube`, `textureAdd`
         `triangle`, `square`, `cube`,
-        `squareGrid`, `cubeGrid`
+        `squareGrid`, `cubeGrid`,
+        `velocity`,
         `#` or `comment` for comments
 
 ## Using as a Dependency
