@@ -9,6 +9,7 @@
 #include "StarletScene/components/textureConnection.hpp"
 #include "StarletScene/components/primitive.hpp"
 #include "StarletScene/components/transform.hpp"
+#include "StarletScene/components/velocity.hpp"
 
 #include "StarletScene/parsers/modelParser.hpp"
 #include "StarletScene/parsers/lightParser.hpp"
@@ -16,6 +17,7 @@
 #include "StarletScene/parsers/gridParser.hpp"
 #include "StarletScene/parsers/textureParser.hpp"
 #include "StarletScene/parsers/primitiveParser.hpp"
+#include "StarletScene/parsers/velocityParser.hpp"
 
 #include "StarletParsers/fileParser.hpp"
 #include "StarletParsers/parserUtils.hpp"
@@ -67,52 +69,81 @@ bool SceneLoader::processSceneLine(Scene& scene, const unsigned char*& p) {
 		return true;
 	}
 
-	StarEntity entity = scene.createEntity();
-	bool handled{ false };
 	if (strcmp(nameStr, "model") == 0) {
+		StarEntity entity = scene.createEntity();
 		Model* model = scene.addComponent<Model>(entity);
 		TransformComponent* transform = scene.addComponent<TransformComponent>(entity);
-		handled = parseModel(p, *model, *transform);
+		return parseModel(p, *model, *transform);
 	}
 	else if (strcmp(nameStr, "light") == 0) {
+		StarEntity entity = scene.createEntity();
 		Light* light = scene.addComponent<Light>(entity);
 		TransformComponent* transform = scene.addComponent<TransformComponent>(entity);
-		handled = parseLight(p, *light, *transform);
+		return parseLight(p, *light, *transform);
 	}
 	else if (strcmp(nameStr, "camera") == 0) {
+		StarEntity entity = scene.createEntity();
 		Camera* camera = scene.addComponent<Camera>(entity);
 		TransformComponent* transform = scene.addComponent<TransformComponent>(entity);
-		handled = parseCamera(p, *camera, *transform);
+		return parseCamera(p, *camera, *transform);
 	}
-	else if (strcmp(nameStr, "texture") == 0)     handled = parseAndAddObject<TextureData>(scene, p, &parseTexture, entity);
-	else if (strcmp(nameStr, "textureCube") == 0) handled = parseAndAddObject<TextureData>(scene, p, &parseCubeTexture, entity);
-	else if (strcmp(nameStr, "textureAdd") == 0)  handled = parseAndAddObject<TextureConnection>(scene, p, &parseTextureConnection, entity);
+	else if (strcmp(nameStr, "texture") == 0) {
+		StarEntity entity = scene.createEntity();
+		return parseAndAddObject<TextureData>(scene, p, &parseTexture, entity);
+	}
+	else if (strcmp(nameStr, "textureCube") == 0) {
+		StarEntity entity = scene.createEntity();
+		return parseAndAddObject<TextureData>(scene, p, &parseCubeTexture, entity);
+	}
+	else if (strcmp(nameStr, "textureAdd") == 0) {
+		StarEntity entity = scene.createEntity();
+		return parseAndAddObject<TextureConnection>(scene, p, &parseTextureConnection, entity);
+	}
 	else if (strcmp(nameStr, "triangle") == 0) {
+		StarEntity entity = scene.createEntity();
 		Primitive* primitive = scene.addComponent<Primitive>(entity);
 		TransformComponent* transform = scene.addComponent <TransformComponent>(entity);
-		handled = parseTriangle(p, *primitive, *transform);
+		return parseTriangle(p, *primitive, *transform);
 	}
 	else if (strcmp(nameStr, "square") == 0) {
+		StarEntity entity = scene.createEntity();
 		Primitive* primitive = scene.addComponent<Primitive>(entity);
 		TransformComponent* transform = scene.addComponent<TransformComponent>(entity);
-		handled = parseSquare(p, *primitive, *transform);
+		return parseSquare(p, *primitive, *transform);
 	}
 	else if (strcmp(nameStr, "cube") == 0) {
+		StarEntity entity = scene.createEntity();
 		Primitive* primitive = scene.addComponent<Primitive>(entity);
 		TransformComponent* transform = scene.addComponent<TransformComponent>(entity);
-		handled = parseSquare(p, *primitive, *transform);
+		return parseSquare(p, *primitive, *transform);
 	}
 	else if (strcmp(nameStr, "squareGrid") == 0) {
+		StarEntity entity = scene.createEntity();
 		Grid* grid = scene.addComponent<Grid>(entity);
 		TransformComponent* transform = scene.addComponent<TransformComponent>(entity);
-		handled = parseSquareGrid(p, *grid, *transform);
+		return parseSquareGrid(p, *grid, *transform);
 	}
 	else if (strcmp(nameStr, "cubeGrid") == 0) {
+		StarEntity entity = scene.createEntity();
 		Grid* grid = scene.addComponent<Grid>(entity);
 		TransformComponent* transform = scene.addComponent<TransformComponent>(entity);
-		handled = parseCubeGrid(p, *grid, *transform);
+		return parseCubeGrid(p, *grid, *transform);
 	}
-	return handled ? true : error("SceneManager", "processSceneLine", "Failed to handle: " + std::string(nameStr));
+	else if (strcmp(nameStr, "velocity") == 0) {
+		unsigned char nameToken[256]{};
+		parseToken(p, nameToken, sizeof(nameToken));
+		const std::string entityName = reinterpret_cast<const char*>(nameToken);
+
+		StarEntity entity = scene.getEntityByName<Model>(entityName);
+		if (entity != -1) {
+			VelocityComponent* velocity = scene.addComponent<VelocityComponent>(entity);
+			if (velocity) return parseVelocity(p, *velocity);
+			else return error("SceneLoader", "processSceneLine", "Failed to add VelocityComponent to entity " + entityName);
+		}
+		
+	}
+
+	return error("SceneManager", "processSceneLine", "Failed to handle: " + std::string(nameStr));
 }
 
 bool SceneLoader::saveScene(const Scene& scene) {
