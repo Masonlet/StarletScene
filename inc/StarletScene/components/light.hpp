@@ -14,11 +14,4 @@ struct Light : public NamedComponent {
 	unsigned int type{ 0 };															 // 0 = Point, 1 = Spot, 2 = Directional
 	Vec2<float> param1{ 0.0f };													 // x = inner angle (spot), y = outer angle (spot)
 	bool enabled{ true };																 // Light enabled
-
-	int position_UL{ -1 };
-	int diffuse_UL{ -1 };
-	int attenuation_UL{ -1 };
-	int direction_UL{ -1 };
-	int param1_UL{ -1 };
-	int param2_UL{ -1 };
 };
