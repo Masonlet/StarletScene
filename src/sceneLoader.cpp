@@ -64,12 +64,12 @@ bool SceneLoader::processSceneLine(Scene& scene, const unsigned char*& p) {
 
 	const char* nameStr = reinterpret_cast<const char*>(token);
 	if (!p || strlen(nameStr) == 0) return true;
+
 	if (strcmp(nameStr, "comment") == 0 || nameStr[0] == '#') {
 		p = skipToNextLine(p);
 		return true;
 	}
-
-	if (strcmp(nameStr, "model") == 0) {
+	else if (strcmp(nameStr, "model") == 0) {
 		StarEntity entity = scene.createEntity();
 		Model* model = scene.addComponent<Model>(entity);
 		TransformComponent* transform = scene.addComponent<TransformComponent>(entity);
@@ -140,7 +140,17 @@ bool SceneLoader::processSceneLine(Scene& scene, const unsigned char*& p) {
 			if (velocity) return parseVelocity(p, *velocity);
 			else return error("SceneLoader", "processSceneLine", "Failed to add VelocityComponent to entity " + entityName);
 		}
-		
+	}
+	else if (strcmp(nameStr, "ambient") == 0) {
+		bool enabled{ false };
+		if (!parseBool(p, enabled)) return error("SceneLoader", "processSceneLine", "Failed to parse ambient enabled");
+
+		Vec3 colour{ 0.0f, 0.0f, 0.0f };
+		if (!parseVec3(p, colour)) return error("SceneLoader", "processSceneLine", "Failed to parse ambient colour");
+
+		if (enabled) scene.setAmbientLight({ colour, 1.0f });
+		else scene.setAmbientLight(Vec4{ 0.0f, 0.0f, 0.0f, 1.0f });
+		return true;
 	}
 
 	return error("SceneManager", "processSceneLine", "Failed to handle: " + std::string(nameStr));

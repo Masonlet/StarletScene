@@ -3,6 +3,8 @@
 #include "systems/system.hpp"
 #include "components/component.hpp"
 
+#include "StarletMath/vec4.hpp"
+
 #include "StarletParsers/utils/log.hpp"
 
 #include <unordered_map>
@@ -15,6 +17,9 @@ class Scene {
 public:
   inline void setScenePath(const std::string& path) { this->path = path; }
   const std::string& getScenePath() const { return path; }
+
+	const Vec4<float>& getAmbientLight() const { return ambientLight; }
+	void setAmbientLight(const Vec4<float>& color) { ambientLight = color; }
 
 	StarEntity createEntity() {
 		StarEntity entity = nextEntity++;
@@ -168,4 +173,6 @@ private:
 	std::vector<StarEntity> entities;
 	std::unordered_map<StarEntity, std::unordered_map<size_t, std::unique_ptr<IStarComponent>>> entityComponents; 
 	std::vector<std::unique_ptr<ISystem>> systems;
+
+	Vec4<float> ambientLight{ 0.0f, 0.0f, 0.0f, 1.0f };
 };
