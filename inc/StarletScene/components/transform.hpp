@@ -5,7 +5,10 @@
 #include "StarletMath/vec3.hpp"
 
 struct TransformComponent : public IStarComponent {
-	Vec3<float> pos{ 0.0f };
-	Vec3<float> rot{ 0.0f };
-	Vec3<float> size{ 1.0f };
+	TransformComponent() : pos(0.0f), rot(0.0f), size(1.0f) {};
+	TransformComponent(Vec3<float> pos, Vec3<float> rot, Vec3<float> size): pos(pos), rot(rot), size(size) {}
+
+	Vec3<float> pos;
+	Vec3<float> rot;
+	Vec3<float> size;
 };
