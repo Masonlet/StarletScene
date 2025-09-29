@@ -5,7 +5,7 @@
 bool SceneManager::loadTxtScene(const std::string& path) {
 	debugLog("SceneManager", "loadTxtScene", "Started: " + path);
 	if (!loader.loadScene(scene, (basePath + path).c_str())) return error("SceneManager", "loadTxtScene", "Failed to load scene file!");
-	scene.setScenePath(path);
+	scene.setScenePath(basePath + path);
 	return debugLog("SceneManager", "loadTxtScene", "Finished: " + path);
 }
 
