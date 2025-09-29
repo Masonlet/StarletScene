@@ -11,8 +11,8 @@
 #include "StarletScene/components/transform.hpp"
 #include "StarletScene/components/velocity.hpp"
 
-#include "StarletParsers/parser.hpp"
-#include "StarletParsers/utils/log.hpp"
+#include "StarletParser/parser.hpp"
+#include "StarletParser/utils/log.hpp"
 
 #include <string>
 #include <fstream>

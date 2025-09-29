@@ -5,7 +5,7 @@
 
 #include "StarletMath/vec4.hpp"
 
-#include "StarletParsers/utils/log.hpp"
+#include "StarletParser/utils/log.hpp"
 
 #include <unordered_map>
 #include <vector>

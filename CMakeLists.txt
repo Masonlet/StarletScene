@@ -15,5 +15,5 @@ if(NOT TARGET ${SCENE_NAME})
 
   target_sources(${SCENE_NAME} PRIVATE ${SCENE_SRC} ${SCENE_HEADERS})
   target_include_directories(${SCENE_NAME} PUBLIC $<BUILD_INTERFACE:${SCENE_INC_DIR}> $<INSTALL_INTERFACE:include>)
-  target_link_libraries(${SCENE_NAME} PUBLIC StarletParsers StarletControls)
+  target_link_libraries(${SCENE_NAME} PUBLIC StarletParser StarletControls)
 endif()
