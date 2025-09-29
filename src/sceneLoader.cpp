@@ -6,7 +6,6 @@
 #include "StarletScene/components/camera.hpp"
 #include "StarletScene/components/grid.hpp"
 #include "StarletScene/components/textureData.hpp"
-#include "StarletScene/components/textureConnection.hpp"
 #include "StarletScene/components/primitive.hpp"
 
 #include "StarletScene/components/transform.hpp"
@@ -98,6 +97,7 @@ bool SceneLoader::saveScene(const Scene& scene) {
 
 		if (!scene.hasComponent<TransformComponent>(entity)) continue;
 		const TransformComponent& transform = scene.getComponent<TransformComponent>(entity);
+		const ColourComponent& colour = scene.getComponent<ColourComponent>(entity);
 
 		if (!light->enabled) continue;
 
@@ -110,7 +110,7 @@ bool SceneLoader::saveScene(const Scene& scene) {
 			<< light->name << ", "
 			<< camType << ", "
 			<< transform.pos << ", "
-			<< light->diffuse << ", "
+			<< colour.colour << ", "
 			<< light->attenuation << ", "
 			<< transform.rot << ", "
 			<< light->param1.y << "\n";
