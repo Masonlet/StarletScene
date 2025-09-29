@@ -1,6 +1,6 @@
 #pragma once
 
-#include "component.hpp"
+#include "StarletScene/component.hpp"
 #include "colour.hpp"
 
 #include "StarletMath/vec4.hpp"
@@ -18,6 +18,4 @@ struct Grid : public NamedComponent {
 	GridType type{ GridType::Cube };
 	unsigned int count{ 1 };
 	float spacing{ 1.0f };
-	Vec4<float> colour{ 1.0f };
-	ColourMode colourMode{ ColourMode::Solid };
 };

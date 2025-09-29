@@ -1,7 +1,7 @@
 #pragma once
 
-#include "systems/system.hpp"
-#include "components/component.hpp"
+#include "StarletScene/system.hpp"
+#include "StarletScene/component.hpp"
 
 #include "StarletMath/vec4.hpp"
 

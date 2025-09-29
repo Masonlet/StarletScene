@@ -1,6 +1,6 @@
 #pragma once
 
-#include "component.hpp"
+#include "StarletScene/component.hpp"
 #include <string>
 
 struct Camera : public NamedComponent {

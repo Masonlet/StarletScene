@@ -8,8 +8,10 @@
 #include "StarletScene/components/textureData.hpp"
 #include "StarletScene/components/textureConnection.hpp"
 #include "StarletScene/components/primitive.hpp"
+
 #include "StarletScene/components/transform.hpp"
 #include "StarletScene/components/velocity.hpp"
+#include "StarletScene/components/colour.hpp"
 
 #include "StarletParser/parser.hpp"
 #include "StarletParser/utils/log.hpp"
@@ -55,32 +57,38 @@ bool SceneLoader::saveScene(const Scene& scene) {
 		if (model->name.rfind("triangle_instance", 0) == 0 || model->name.rfind("cube_instance_", 0) == 0 || model->name.rfind("square_instance_", 0) == 0)
 			continue;
 
-		if (!scene.hasComponent<TransformComponent>(entity)) continue;
-		const TransformComponent& transform = scene.getComponent<TransformComponent>(entity);
-
 		file << "model, "
 			<< model->name << ", "
-			<< model->meshPath << ", "
-			<< transform.pos << ", "
-			<< transform.rot << ", "
-			<< transform.size << ", ";
+			<< model->meshPath << ", ";
 
-		switch (model->colourMode) {
-		case ColourMode::Solid: {
-			Vec4 rgba { model->colour.x * 255.0f, model->colour.y * 255.0f, model->colour.z * 255.0f, model->colour.w * 255.0f };
-			if      (rgba.r == 255 && rgba.g == 0 && rgba.b == 0 && rgba.a == 255) file << "Red";
-			else if (rgba.r == 0 && rgba.g == 255 && rgba.b == 0 && rgba.a == 255) file << "Green";
-			else if (rgba.r == 0 && rgba.g == 0 && rgba.b == 255 && rgba.a == 255) file << "Blue";
-			else file << rgba;
-			break;
-		}
-		case ColourMode::Random:           file << "Random"; break;
-		case ColourMode::VerticalGradient: file << "Rainbow"; break;
-		case ColourMode::PLYColour:        file << "PLY"; break;
-		default: break;
+		if (scene.hasComponent<TransformComponent>(entity)) {
+			const TransformComponent& transform = scene.getComponent<TransformComponent>(entity);
+
+			file << transform.pos << ", "
+				   << transform.rot << ", "
+				   << transform.size << ", ";
 		}
 
-		file << ", " << model->specular << "\n";
+		if (scene.hasComponent<ColourComponent>(entity)) {
+			const ColourComponent& colour = scene.getComponent<ColourComponent>(entity);
+
+			switch (colour.mode) {
+			case ColourMode::Solid: {
+				Vec4 rgba{ colour.colour.x * 255.0f, colour.colour.y * 255.0f, colour.colour.z * 255.0f, colour.colour.w * 255.0f };
+				if      (rgba.r == 255 && rgba.g == 0 && rgba.b == 0 && rgba.a == 255) file << "Red";
+				else if (rgba.r == 0 && rgba.g == 255 && rgba.b == 0 && rgba.a == 255) file << "Green";
+				else if (rgba.r == 0 && rgba.g == 0 && rgba.b == 255 && rgba.a == 255) file << "Blue";
+				else file << rgba;
+				break;
+			}
+			case ColourMode::Random:           file << "Random"; break;
+			case ColourMode::VerticalGradient: file << "Rainbow"; break;
+			case ColourMode::PLYColour:        file << "PLY"; break;
+			default: break;
+			}
+
+			file << ", " << colour.specular << "\n";
+		}
 	}
 
 	file << "\ncomment, name, type, pos (xyz), diffuse (rgba), attention (xyzw), direction, param1 (spotlight inner, spotlight outer), param2 (on/off)\n";

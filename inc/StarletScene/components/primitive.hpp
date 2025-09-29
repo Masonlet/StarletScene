@@ -1,6 +1,6 @@
 #pragma once
 
-#include "component.hpp"
+#include "StarletScene/component.hpp"
 #include "colour.hpp"
 
 #include "StarletMath/transform.hpp"
@@ -16,6 +16,4 @@ enum class PrimitiveType {
 
 struct Primitive : public NamedComponent {
 	PrimitiveType type;
-	Vec4<float> colour;
-	ColourMode colourMode;
 };

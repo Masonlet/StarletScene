@@ -1,6 +1,6 @@
 #pragma once
 
-#include "system.hpp"
+#include "StarletScene/system.hpp"
 
 class Scene;
 class InputManager;

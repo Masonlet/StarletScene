@@ -1,6 +1,6 @@
 #pragma once
 
-#include "component.hpp"
+#include "StarletScene/component.hpp"
 #include "colour.hpp"
 
 #include "StarletMath/vec2.hpp"
@@ -12,9 +12,6 @@
 
 struct Model : public NamedComponent {
 	std::string meshPath;
-
-	Vec4<float> colour{ 1.0f }, specular{ 1.0f, 1.0f, 1.0f, 32.0f };
-	ColourMode colourMode{ ColourMode::Solid };
 	bool isVisible{ true }, isLighted{ true }, useTextures{ false };
 
 	static const unsigned int NUM_TEXTURES = 4;
