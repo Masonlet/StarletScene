@@ -1,7 +1,6 @@
 #pragma once
 
 #include "StarletScene/component.hpp"
-#include <string>
 
 struct Camera : public NamedComponent {
 	float moveSpeed{ 25.0f }, mouseSpeed{ 0.1f };

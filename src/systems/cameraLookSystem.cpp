@@ -12,10 +12,7 @@
 void CameraLookSystem::update(Scene& scene, InputManager& input, const float deltaTime) {
   if (!input.isCursorLocked()) return;
 
-  for (auto& pair : scene.getEntitiesOfType<Camera>()) {
-    StarEntity entity = pair.first;
-    Camera* camera = pair.second;
-
+  for (auto& [entity, camera] : scene.getEntitiesOfType<Camera>()) {
     if (!camera->enabled) continue;
 
     if (scene.hasComponent<TransformComponent>(entity)) {
@@ -24,7 +21,7 @@ void CameraLookSystem::update(Scene& scene, InputManager& input, const float del
       transform.rot.y += input.getMouseDelta().x * camera->mouseSpeed; 
       transform.rot.x += input.getMouseDelta().y * camera->mouseSpeed; 
 
-      if (transform.rot.x > 89.0f) transform.rot.x = 89.0f;
+      if (transform.rot.x > 89.0f)  transform.rot.x = 89.0f;
       if (transform.rot.x < -89.0f) transform.rot.x = -89.0f;
     }
   }

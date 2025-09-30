@@ -1,14 +1,17 @@
 #pragma once
 
 #include "StarletScene/component.hpp"
-#include "colour.hpp"
 
 #include "StarletMath/vec2.hpp"
-#include "StarletMath/vec3.hpp"
-#include "StarletMath/vec4.hpp"
-#include "StarletMath/mat4.hpp"
 
 #include <string>
+
+enum class ColourMode {
+	Solid,
+	Random,
+	VerticalGradient,
+	PLYColour
+};
 
 struct Model : public NamedComponent {
 	std::string meshPath;

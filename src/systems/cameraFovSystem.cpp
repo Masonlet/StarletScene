@@ -13,10 +13,7 @@ void CameraFovSystem::update(Scene& scene, InputManager& input, const float delt
   float scrollDelta = static_cast<float>(input.consumeScrollY());
   if (scrollDelta == 0.0f) return;
 
-  for (auto& pair : scene.getEntitiesOfType<Camera>()) {
-    Camera* camera = pair.second;
-    if (!camera->enabled) continue;
-
+  for (auto& [entity, camera] : scene.getEntitiesOfType<Camera>()) {
     camera->fov -= scrollDelta;
     if (camera->fov < 1.0f)   camera->fov = 1.0f;
     if (camera->fov > 120.0f) camera->fov = 120.0f;

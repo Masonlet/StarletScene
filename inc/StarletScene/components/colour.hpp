@@ -2,13 +2,6 @@
 
 #include "StarletScene/component.hpp"
 
-enum class ColourMode {
-  Solid,
-  Random,
-  VerticalGradient,
-  PLYColour
-};
-
 #include "StarletMath/vec4.hpp"
 
 struct ColourComponent : public IStarComponent {

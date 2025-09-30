@@ -2,9 +2,6 @@
 
 #include "StarletScene/system.hpp"
 
-class Scene;
-class InputManager;
-
 struct CameraMoveSystem : public ISystem {
 	void update(Scene& scene, InputManager& input, const float deltaTime) override;
 };
