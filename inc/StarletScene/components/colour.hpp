@@ -12,9 +12,8 @@ enum class ColourMode {
 #include "StarletMath/vec4.hpp"
 
 struct ColourComponent : public IStarComponent {
-  ColourComponent() : colour(1.0f), mode(ColourMode::Solid), specular(1.0f, 1.0f, 1.0f, 32.0f) {}
+  ColourComponent() : colour(1.0f), specular(1.0f, 1.0f, 1.0f, 32.0f) {}
 
   Vec4<float> colour;
-	ColourMode mode;
   Vec4<float> specular;
 };

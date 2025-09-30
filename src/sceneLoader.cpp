@@ -68,26 +68,29 @@ bool SceneLoader::saveScene(const Scene& scene) {
 				   << transform.size << ", ";
 		}
 
+		ColourComponent colour;
+
 		if (scene.hasComponent<ColourComponent>(entity)) {
-			const ColourComponent& colour = scene.getComponent<ColourComponent>(entity);
-
-			switch (colour.mode) {
-			case ColourMode::Solid: {
-				Vec4 rgba{ colour.colour.x * 255.0f, colour.colour.y * 255.0f, colour.colour.z * 255.0f, colour.colour.w * 255.0f };
-				if      (rgba.r == 255 && rgba.g == 0 && rgba.b == 0 && rgba.a == 255) file << "Red";
-				else if (rgba.r == 0 && rgba.g == 255 && rgba.b == 0 && rgba.a == 255) file << "Green";
-				else if (rgba.r == 0 && rgba.g == 0 && rgba.b == 255 && rgba.a == 255) file << "Blue";
-				else file << rgba;
-				break;
-			}
-			case ColourMode::Random:           file << "Random"; break;
-			case ColourMode::VerticalGradient: file << "Rainbow"; break;
-			case ColourMode::PLYColour:        file << "PLY"; break;
-			default: break;
-			}
-
-			file << ", " << colour.specular << "\n";
+			colour = scene.getComponent<ColourComponent>(entity);
 		}
+		else colour = ColourComponent{}; 
+
+		switch (model->mode) {
+		case ColourMode::Solid: {
+			Vec4 rgba{ colour.colour.x * 255.0f, colour.colour.y * 255.0f, colour.colour.z * 255.0f, colour.colour.w * 255.0f };
+			if (rgba.r == 255 && rgba.g == 0 && rgba.b == 0 && rgba.a == 255) file << "Red";
+			else if (rgba.r == 0 && rgba.g == 255 && rgba.b == 0 && rgba.a == 255) file << "Green";
+			else if (rgba.r == 0 && rgba.g == 0 && rgba.b == 255 && rgba.a == 255) file << "Blue";
+			else file << rgba;
+			break;
+		}
+		case ColourMode::Random:           file << "Random"; break;
+		case ColourMode::VerticalGradient: file << "Rainbow"; break;
+		case ColourMode::PLYColour:        file << "PLY"; break;
+		default: break;
+		}
+
+		file << ", " << colour.specular << "\n";
 	}
 
 	file << "\ncomment, name, type, pos (xyz), diffuse (rgba), attention (xyzw), direction, param1 (spotlight inner, spotlight outer), param2 (on/off)\n";

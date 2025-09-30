@@ -14,6 +14,8 @@ struct Model : public NamedComponent {
 	std::string meshPath;
 	bool isVisible{ true }, isLighted{ true }, useTextures{ false };
 
+	ColourMode mode{ ColourMode::Solid };
+
 	static const unsigned int NUM_TEXTURES = 4;
 	std::string textureNames[NUM_TEXTURES]{ "" };
 	float textureMixRatio[NUM_TEXTURES]{ 1.0f, 0.0f, 0.0f, 0.0f };

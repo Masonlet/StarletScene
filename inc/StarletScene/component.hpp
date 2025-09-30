@@ -7,7 +7,7 @@ using StarEntity = uint32_t;
 
 struct IStarComponent {
 	virtual ~IStarComponent() = default;
-	StarEntity id;
+	StarEntity id{ 0 };
 };
 
 struct NamedComponent : public IStarComponent {
