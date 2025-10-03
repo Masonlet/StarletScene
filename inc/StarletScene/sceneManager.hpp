@@ -1,7 +1,6 @@
 #pragma once
 
 #include "scene.hpp"
-#include "sceneLoader.hpp"
 
 class SceneManager {
 public:
@@ -15,5 +14,4 @@ public:
 private:
   std::string basePath;
   Scene scene;
-  SceneLoader loader;
 };
