@@ -1,8 +1,8 @@
 #include "StarletScene/sceneManager.hpp"
 
-#include "StarletParser/parser.hpp"
-#include "StarletParser/writer.hpp"
-#include "StarletParser/utils/log.hpp"
+#include "StarletSerializer/parser.hpp"
+#include "StarletSerializer/writer.hpp"
+#include "StarletSerializer/utils/log.hpp"
 
 bool SceneManager::loadTxtScene(const std::string& path) {
   debugLog("SceneManager", "loadTxtScene", "Started: " + path);
