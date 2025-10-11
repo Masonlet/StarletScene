@@ -1,7 +1,7 @@
-#include "StarletScene/systems/cameraMoveSystem.hpp"
+#include "StarletScene/system/cameraMoveSystem.hpp"
 
-#include "StarletScene/components/camera.hpp"
-#include "StarletScene/components/transform.hpp"
+#include "StarletScene/component/camera.hpp"
+#include "StarletScene/component/transform.hpp"
 
 #include "StarletControls/inputManager.hpp"
 #include "StarletScene/scene.hpp"

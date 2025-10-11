@@ -1,4 +1,4 @@
-#include "StarletScene/managers/sceneManager.hpp"
+#include "StarletScene/manager/sceneManager.hpp"
 #include "StarletSerializer/utils/log.hpp"
 
 #include"StarletSerializer/parser.hpp"

@@ -1,8 +1,8 @@
 #pragma once
 
-#include "StarletScene/managers/entityManager.hpp"
-#include "StarletScene/managers/componentManager.hpp"
-#include "StarletScene/managers/systemManager.hpp"
+#include "StarletScene/manager/entityManager.hpp"
+#include "StarletScene/manager/componentManager.hpp"
+#include "StarletScene/manager/systemManager.hpp"
 
 #include "StarletMath/vec4.hpp"
 

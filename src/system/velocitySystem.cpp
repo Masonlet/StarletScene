@@ -1,7 +1,7 @@
-#include "StarletScene/systems/velocitySystem.hpp"
+#include "StarletScene/system/velocitySystem.hpp"
 
-#include "StarletScene/components/transform.hpp"
-#include "StarletScene/components/velocity.hpp"
+#include "StarletScene/component/transform.hpp"
+#include "StarletScene/component/velocity.hpp"
 
 #include "StarletControls/inputManager.hpp"
 #include "StarletScene/scene.hpp"
