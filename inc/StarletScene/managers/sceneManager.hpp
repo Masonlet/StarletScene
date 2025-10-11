@@ -1,6 +1,6 @@
 #pragma once
 
-#include "scene.hpp"
+#include "StarletScene/scene.hpp"
 
 class SceneManager {
 public:

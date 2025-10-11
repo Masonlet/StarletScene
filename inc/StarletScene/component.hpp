@@ -1,9 +1,8 @@
 #pragma once
 
-#include <cstdint>
-#include <string>
+#include "StarletScene/entity.hpp"
 
-using StarEntity = uint32_t;
+#include <string>
 
 struct IStarComponent {
 	virtual ~IStarComponent() = default;
