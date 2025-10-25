@@ -1,13 +1,13 @@
 #include "StarletScene/manager/sceneManager.hpp"
 #include "StarletSerializer/utils/log.hpp"
 
-#include"StarletSerializer/parser.hpp"
-#include "StarletSerializer/writer.hpp"
+#include"StarletSerializer/parser/sceneParser.hpp"
+#include "StarletSerializer/writer/writer.hpp"
 
 bool SceneManager::loadTxtScene(const std::string& path) {
   debugLog("SceneManager", "loadTxtScene", "Started: " + path);
-  Parser parser;
-  if (!parser.parseScene(scene, (basePath + path).c_str())) return error("SceneManager", "loadTxtScene", "Failed to load scene file!");
+  SceneParser parser;
+  if (!parser.parse(scene, (basePath + path).c_str())) return error("SceneManager", "loadTxtScene", "Failed to load scene file!");
 
   scene.setScenePath(basePath + path);
   return debugLog("SceneManager", "loadTxtScene", "Finished: " + path);
