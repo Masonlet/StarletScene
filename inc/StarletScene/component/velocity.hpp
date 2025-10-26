@@ -4,6 +4,8 @@
 
 #include "StarletMath/vec3.hpp"
 
-struct VelocityComponent : public IStarComponent {
-	Vec3<float> velocity{ 1.0f };
-};
+namespace Starlet::Scene {
+	struct VelocityComponent : public IStarComponent {
+		Math::Vec3<float> velocity{ 1.0f };
+	};
+}

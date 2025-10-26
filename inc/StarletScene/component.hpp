@@ -4,11 +4,13 @@
 
 #include <string>
 
-struct IStarComponent {
-	virtual ~IStarComponent() = default;
-	StarEntity id{ 0 };
-};
+namespace Starlet::Scene {
+	struct IStarComponent {
+		virtual ~IStarComponent() = default;
+		StarEntity id{ 0 };
+	};
 
-struct NamedComponent : public IStarComponent {
-	std::string name;
-};
+	struct NamedComponent : public IStarComponent {
+		std::string name;
+	};
+}

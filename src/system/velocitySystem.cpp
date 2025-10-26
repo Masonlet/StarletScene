@@ -8,11 +8,13 @@
 
 #include "StarletMath/constants.hpp"
 
-void VelocitySystem::update(Scene& scene, InputManager& input, const float deltaTime) {
-  for (auto& [entity, velocity] : scene.getEntitiesOfType<VelocityComponent>()) {
-    if (scene.hasComponent<TransformComponent>(entity)) {
-      TransformComponent& transform = scene.getComponent<TransformComponent>(entity);
-      transform.pos += velocity->velocity * deltaTime;
+namespace Starlet::Scene {
+  void VelocitySystem::update(Scene& scene, Input::InputManager& input, const float deltaTime) {
+    for (auto& [entity, velocity] : scene.getEntitiesOfType<VelocityComponent>()) {
+      if (scene.hasComponent<TransformComponent>(entity)) {
+        TransformComponent& transform = scene.getComponent<TransformComponent>(entity);
+        transform.pos += velocity->velocity * deltaTime;
+      }
     }
   }
 }

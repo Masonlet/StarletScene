@@ -2,4 +2,6 @@
 
 #include <cstdint>
 
-using StarEntity = uint32_t;
+namespace Starlet::Scene {
+	using StarEntity = uint32_t;
+}

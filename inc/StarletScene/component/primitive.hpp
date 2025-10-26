@@ -4,12 +4,14 @@
 
 #include <string>
 
-enum class PrimitiveType {
-	Triangle,
-	Square,
-	Cube
-};
+namespace Starlet::Scene {
+	enum class PrimitiveType {
+		Triangle,
+		Square,
+		Cube
+	};
 
-struct Primitive : public NamedComponent {
-	PrimitiveType type;
-};
+	struct Primitive : public NamedComponent {
+		PrimitiveType type;
+	};
+}

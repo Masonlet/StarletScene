@@ -4,19 +4,21 @@
 
 #include <vector>
 
-class EntityManager {
-public:
-	StarEntity createEntity() {
-		StarEntity entity = nextEntity++;
-		entities.push_back(entity);
-		return entity;
-	}
+namespace Starlet::Scene {
+	class EntityManager {
+	public:
+		StarEntity createEntity() {
+			StarEntity entity = nextEntity++;
+			entities.push_back(entity);
+			return entity;
+		}
 
-	const std::vector<StarEntity>& getEntities() const {
-		return entities;
-	}
+		const std::vector<StarEntity>& getEntities() const {
+			return entities;
+		}
 
-private:
-	StarEntity nextEntity{ 0 };
-	std::vector<StarEntity> entities;
-};
+	private:
+		StarEntity nextEntity{ 0 };
+		std::vector<StarEntity> entities;
+	};
+}

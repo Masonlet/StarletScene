@@ -1,9 +1,16 @@
 #pragma once
 
-class Scene;
-class InputManager;
+namespace Starlet {
+	namespace Input {
+		class InputManager;
+	}
 
-struct ISystem {
-	virtual ~ISystem() = default;
-	virtual void update(Scene& scene, InputManager& input, const float deltaTime) = 0;
-};
+	namespace Scene {
+		class Scene;
+
+		struct ISystem {
+			virtual ~ISystem() = default;
+			virtual void update(Scene& scene, Input::InputManager& input, const float deltaTime) = 0;
+		};
+	}
+}

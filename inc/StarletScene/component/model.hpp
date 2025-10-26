@@ -8,23 +8,25 @@
 
 #include <string>
 
-enum class ColourMode {
-	Solid,
-	Random,
-	VerticalGradient,
-	PLYColour
-};
+namespace Starlet::Scene {
+	enum class ColourMode {
+		Solid,
+		Random,
+		VerticalGradient,
+		PLYColour
+	};
 
-struct Model : public NamedComponent {
-	std::string meshPath;
-	ResourceHandle meshHandle;
+	struct Model : public NamedComponent {
+		std::string meshPath;
+		Graphics::ResourceHandle meshHandle;
 
-	bool isVisible{ true }, isLighted{ true }, useTextures{ false };
-	ColourMode mode{ ColourMode::Solid };
+		bool isVisible{ true }, isLighted{ true }, useTextures{ false };
+		ColourMode mode{ ColourMode::Solid };
 
-	static const unsigned int NUM_TEXTURES = 4;
-	std::string textureNames[NUM_TEXTURES]{ "" };
-	float textureMixRatio[NUM_TEXTURES]{ 1.0f, 0.0f, 0.0f, 0.0f };
-	Vec2<float> textureTiling{ 1.0f, 1.0f };
-	ResourceHandle textureHandles[NUM_TEXTURES];
-};
+		static const unsigned int NUM_TEXTURES = 4;
+		std::string textureNames[NUM_TEXTURES]{ "" };
+		float textureMixRatio[NUM_TEXTURES]{ 1.0f, 0.0f, 0.0f, 0.0f };
+		Math::Vec2<float> textureTiling{ 1.0f, 1.0f };
+		Graphics::ResourceHandle textureHandles[NUM_TEXTURES];
+	};
+}
