@@ -2,18 +2,26 @@
 
 #include "StarletScene/scene.hpp"
 
-namespace Starlet::Scene {
-  class SceneManager {
-  public:
-    void setBasePath(const char* path) { basePath = path; }
+namespace Starlet {
+  namespace Serializer {
+    struct SceneData;
+  }
 
-    inline Scene& getScene() { return scene; }
+  namespace Scene {
+    class SceneManager {
+    public:
+      void setBasePath(const char* path) { basePath = path; }
 
-    bool loadTxtScene(const std::string& path);
-    bool saveTxtScene();
+      inline Scene& getScene() { return scene; }
 
-  private:
-    std::string basePath;
-    Scene scene;
-  };
+      bool loadTxtScene(const std::string& path);
+      bool saveTxtScene();
+
+    private:
+      std::string basePath;
+
+      bool loadScene(Serializer::SceneData& data);
+      Scene scene;
+    };
+  }
 }

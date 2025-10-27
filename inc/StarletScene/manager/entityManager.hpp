@@ -7,18 +7,18 @@
 namespace Starlet::Scene {
 	class EntityManager {
 	public:
-		StarEntity createEntity() {
-			StarEntity entity = nextEntity++;
+		Entity createEntity() {
+			Entity entity = nextEntity++;
 			entities.push_back(entity);
 			return entity;
 		}
 
-		const std::vector<StarEntity>& getEntities() const {
+		const std::vector<Entity>& getEntities() const {
 			return entities;
 		}
 
 	private:
-		StarEntity nextEntity{ 0 };
-		std::vector<StarEntity> entities;
+		Entity nextEntity{ 0 };
+		std::vector<Entity> entities;
 	};
 }

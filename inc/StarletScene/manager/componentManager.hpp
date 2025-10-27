@@ -12,14 +12,14 @@ namespace Starlet::Scene {
 	class ComponentManager {
 	public:
 		template<typename T>
-		bool hasComponent(StarEntity entity) const {
+		bool hasComponent(Entity entity) const {
 			auto it = entityComponents.find(entity);
 			if (it == entityComponents.end()) return false;
 			return it->second.find(typeid(T).hash_code()) != it->second.end();
 		}
 
 		template<typename T, typename... Args>
-		T* addComponent(StarEntity entity, Args&&... args) {
+		T* addComponent(Entity entity, Args&&... args) {
 			if (hasComponent<T>(entity)) {
 				Serializer::error("ComponentManager", "addComponent", "Entity already has this component");
 				return nullptr;
@@ -33,7 +33,7 @@ namespace Starlet::Scene {
 		}
 
 		template<typename T>
-		T& getComponent(StarEntity entity) {
+		T& getComponent(Entity entity) {
 			auto& components = entityComponents.at(entity);
 			auto it = components.find(typeid(T).hash_code());
 			if (it == components.end()) {
@@ -43,7 +43,7 @@ namespace Starlet::Scene {
 			return *static_cast<T*>(it->second.get());
 		}
 		template<typename T>
-		const T& getComponent(StarEntity entity) const {
+		const T& getComponent(Entity entity) const {
 			const auto& components = entityComponents.at(entity);
 			auto it = components.find(typeid(T).hash_code());
 			if (it == components.end()) {
@@ -54,8 +54,8 @@ namespace Starlet::Scene {
 		}
 
 		template<typename T>
-		std::vector<std::pair<StarEntity, T*>> getEntitiesOfType() {
-			std::vector<std::pair<StarEntity, T*>> entitiesOut;
+		std::vector<std::pair<Entity, T*>> getEntitiesOfType() {
+			std::vector<std::pair<Entity, T*>> entitiesOut;
 			for (auto& [entity, components] : entityComponents) {
 				auto it = components.find(typeid(T).hash_code());
 				if (it != components.end()) entitiesOut.emplace_back(entity, static_cast<T*>(it->second.get()));
@@ -63,8 +63,8 @@ namespace Starlet::Scene {
 			return entitiesOut;
 		}
 		template<typename T>
-		std::vector<std::pair<StarEntity, const T*>> getEntitiesOfType() const {
-			std::vector<std::pair<StarEntity, const T*>> entitiesOut;
+		std::vector<std::pair<Entity, const T*>> getEntitiesOfType() const {
+			std::vector<std::pair<Entity, const T*>> entitiesOut;
 			for (const auto& [entity, components] : entityComponents) {
 				auto it = components.find(typeid(T).hash_code());
 				if (it != components.end()) entitiesOut.emplace_back(entity, static_cast<const T*>(it->second.get()));
@@ -105,7 +105,7 @@ namespace Starlet::Scene {
 		}
 
 		template<typename T>
-		StarEntity getEntityByName(const std::string& name) {
+		Entity getEntityByName(const std::string& name) {
 			for (const auto& [entity, components] : entityComponents) {
 				auto it = components.find(typeid(T).hash_code());
 				if (it != components.end()) {
@@ -116,7 +116,7 @@ namespace Starlet::Scene {
 			return -1;
 		}
 		template <typename T>
-		const StarEntity getEntityByName(const std::string& name) const {
+		const Entity getEntityByName(const std::string& name) const {
 			for (const auto& [entity, components] : entityComponents) {
 				auto it = components.find(typeid(T).hash_code());
 				if (it != components.end()) {
@@ -141,6 +141,6 @@ namespace Starlet::Scene {
 		}
 
 	private:
-		std::unordered_map<StarEntity, std::unordered_map<size_t, std::unique_ptr<IStarComponent>>> entityComponents;
+		std::unordered_map<Entity, std::unordered_map<size_t, std::unique_ptr<IStarComponent>>> entityComponents;
 	};
 }

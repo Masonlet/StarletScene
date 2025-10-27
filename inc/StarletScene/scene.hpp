@@ -15,41 +15,41 @@ namespace Starlet::Scene {
 		void setAmbientLight(const Math::Vec4<float>& color) { ambientLight = color; }
 		const Math::Vec4<float>& getAmbientLight() const { return ambientLight; }
 
-		StarEntity createEntity() {
+		Entity createEntity() {
 			return entityManager.createEntity();
 		}
 
-		const std::vector<StarEntity>& getEntities() const {
+		const std::vector<Entity>& getEntities() const {
 			return entityManager.getEntities();
 		}
 
 		template<typename T>
-		bool hasComponent(StarEntity entity) const {
+		bool hasComponent(Entity entity) const {
 			return componentManager.hasComponent<T>(entity);
 		}
 
 		template<typename T, typename... Args>
-		T* addComponent(StarEntity entity, Args&&... args) {
+		T* addComponent(Entity entity, Args&&... args) {
 			return componentManager.addComponent<T>(entity, std::forward<Args>(args)...);
 		}
 
 		template<typename T>
-		T& getComponent(StarEntity entity) {
+		T& getComponent(Entity entity) {
 			return componentManager.getComponent<T>(entity);
 		}
 
 		template<typename T>
-		const T& getComponent(StarEntity entity) const {
+		const T& getComponent(Entity entity) const {
 			return componentManager.getComponent<T>(entity);
 		}
 
 		template<typename T>
-		std::vector<std::pair<StarEntity, T*>> getEntitiesOfType() {
+		std::vector<std::pair<Entity, T*>> getEntitiesOfType() {
 			return componentManager.getEntitiesOfType<T>();
 		}
 
 		template<typename T>
-		std::vector<std::pair<StarEntity, const T*>> getEntitiesOfType() const {
+		std::vector<std::pair<Entity, const T*>> getEntitiesOfType() const {
 			return componentManager.getEntitiesOfType<T>();
 		}
 
@@ -74,12 +74,12 @@ namespace Starlet::Scene {
 		}
 
 		template<typename T>
-		StarEntity getEntityByName(const std::string& name) {
+		Entity getEntityByName(const std::string& name) {
 			return componentManager.getEntityByName<T>(name);
 		}
 
 		template<typename T>
-		const StarEntity getEntityByName(const std::string& name) const {
+		const Entity getEntityByName(const std::string& name) const {
 			return componentManager.getEntityByName<T>(name);
 		}
 

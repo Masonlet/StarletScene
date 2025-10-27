@@ -7,7 +7,7 @@
 namespace Starlet::Scene {
 	struct IStarComponent {
 		virtual ~IStarComponent() = default;
-		StarEntity id{ 0 };
+		Entity id{ 0 };
 	};
 
 	struct NamedComponent : public IStarComponent {
