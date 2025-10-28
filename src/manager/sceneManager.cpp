@@ -13,6 +13,7 @@
 
 #include"StarletSerializer/parser/sceneParser.hpp"
 #include "StarletSerializer/writer/writer.hpp"
+#include "StarletSerializer/data/sceneData.hpp"
 
 namespace Starlet::Scene {
   bool SceneManager::loadTxtScene(const std::string& path) {
@@ -33,9 +34,13 @@ namespace Starlet::Scene {
   bool SceneManager::saveTxtScene() {
     Serializer::debugLog("SceneManager", "saveTxtScene", "Started: " + scene.getScenePath());
 
+    Serializer::SceneData data;
+    if (!saveScene(data))
+      return Serializer::error("SceneManager", "saveTxtScene", "Failed to save scene data");
+
     Serializer::Writer w;
-    if (!w.writeScene(scene))
-      return Serializer::error("SceneManager", "saveTxtScene", "Failed to save scene: " + basePath);
+    if (!w.writeScene(data, scene.getScenePath()))
+      return Serializer::error("SceneManager", "saveTxtScene", "Failed to save scene: " + scene.getScenePath());
 
     return Serializer::debugLog("SceneManager", "saveTxtScene", "Finished: " + scene.getScenePath());
   }
@@ -176,5 +181,142 @@ namespace Starlet::Scene {
     scene.setAmbientLight({ data.ambientLight, 1.0f });
     return true;
   }
-}
 
+  bool SceneManager::saveScene(Serializer::SceneData& data) {
+    for (const auto& [entity, model] : scene.getEntitiesOfType<Model>()) {
+			Serializer::ModelData modelData;
+			modelData.name = model->name;
+			modelData.meshPath = model->meshPath;
+			modelData.isLighted = model->isLighted;
+			modelData.isVisible = model->isVisible;
+			modelData.useTextures = model->useTextures;
+			modelData.mode = static_cast<Serializer::ColourMode>(model->mode);
+			modelData.textureTiling = model->textureTiling;
+      for (int i = 0; i < Model::NUM_TEXTURES; ++i) {
+        modelData.textureNames[i] = model->textureNames[i];
+        modelData.textureMixRatio[i] = model->textureMixRatio[i];
+
+        if (!model->textureNames[i].empty()) {
+          Serializer::TextureConnection connection;
+          connection.modelName = model->name;
+          connection.textureName = model->textureNames[i];
+          connection.slot = i;
+          connection.mix = model->textureMixRatio[i];
+          data.textureConnections.push_back(connection);
+        }
+      }
+
+			const TransformComponent& transform = scene.getComponent<TransformComponent>(entity);
+			modelData.transform.pos = transform.pos;
+      modelData.transform.rot = transform.rot;
+      modelData.transform.size = transform.size;
+
+			const ColourComponent& colour = scene.getComponent<ColourComponent>(entity);
+			modelData.colour.colour = colour.colour;
+			modelData.colour.specular = colour.specular;
+
+			data.models.push_back(modelData);
+    }
+
+    for (const auto& [entity, light] : scene.getEntitiesOfType<Light>()) {
+			Serializer::LightData lightData;
+			lightData.name = light->name;
+			lightData.enabled = light->enabled;
+			lightData.type = static_cast<Serializer::LightType>(light->type);
+			lightData.attenuation = light->attenuation;
+      lightData.param1 = light->param1;
+
+			const TransformComponent& transform = scene.getComponent<TransformComponent>(entity);
+      lightData.transform.pos = transform.pos;
+      lightData.transform.rot = transform.rot;
+			lightData.transform.size = transform.size;
+
+			const ColourComponent& colour = scene.getComponent<ColourComponent>(entity);
+			lightData.colour.colour = colour.colour;
+			lightData.colour.specular = colour.specular;
+
+			data.lights.push_back(lightData);
+    }
+
+    for (const auto& [entity, cam] : scene.getEntitiesOfType<Camera>()) {
+			Serializer::CameraData cameraData;
+      cameraData.name = cam->name;
+			cameraData.moveSpeed = cam->moveSpeed;
+			cameraData.mouseSpeed = cam->mouseSpeed;
+			cameraData.fov = cam->fov;
+			cameraData.nearPlane = cam->nearPlane;
+			cameraData.farPlane = cam->farPlane;
+			cameraData.enabled = cam->enabled;
+			cameraData.paused = cam->paused;
+
+      const TransformComponent& transform = scene.getComponent<TransformComponent>(entity);
+			cameraData.transform.pos = transform.pos;
+			cameraData.transform.rot = transform.rot;
+      cameraData.transform.size = transform.size;
+
+			data.cameras.push_back(cameraData);
+    }
+
+    for (const auto& [entity, texture] : scene.getEntitiesOfType<TextureData>()) {
+      Serializer::TextureData textureData;
+      textureData.name = texture->name;
+      textureData.mix = texture->mix;
+      textureData.tiling = texture->tiling;
+      textureData.isCube = texture->isCube;
+      for (int i = 0; i < 6; ++i)
+        textureData.faces[i] = texture->faces[i];
+
+      data.textures.push_back(textureData);
+		}
+
+    for (const auto& [entity, primitive] : scene.getEntitiesOfType<Primitive>()) {
+      Serializer::PrimitiveData primitiveData;
+      primitiveData.name = primitive->name;
+      primitiveData.type = static_cast<Serializer::PrimitiveType>(primitive->type);
+
+      const TransformComponent& transform = scene.getComponent<TransformComponent>(entity);
+      primitiveData.transform.pos = transform.pos;
+      primitiveData.transform.rot = transform.rot;
+      primitiveData.transform.size = transform.size;
+
+      const ColourComponent& colour = scene.getComponent<ColourComponent>(entity);
+      primitiveData.colour.colour = colour.colour;
+      primitiveData.colour.specular = colour.specular;
+      data.primitives.push_back(primitiveData);
+    }
+
+    for (const auto& [entity, grid] : scene.getEntitiesOfType<Grid>()) {
+      Serializer::GridData gridData;
+      gridData.name = grid->name;
+      gridData.type = static_cast<Serializer::GridType>(grid->type);
+      gridData.count = grid->count;
+      gridData.spacing = grid->spacing;
+
+      const TransformComponent& transform = scene.getComponent<TransformComponent>(entity);
+      gridData.transform.pos = transform.pos;
+      gridData.transform.rot = transform.rot;
+      gridData.transform.size = transform.size;
+
+      const ColourComponent& colour = scene.getComponent<ColourComponent>(entity);
+      gridData.colour.colour = colour.colour;
+      gridData.colour.specular = colour.specular;
+
+      data.grids.push_back(gridData);
+    }
+
+    for (const auto& [entity, velocity] : scene.getEntitiesOfType<VelocityComponent>()) {
+      const Model& model = scene.getComponent<Model>(entity);
+
+      Serializer::VelocityData velocityData;
+      velocityData.modelName = model.name;
+      velocityData.velocity = velocity->velocity;
+
+      data.velocities.push_back(velocityData);
+    }
+
+		const Math::Vec4<float>& colour = scene.getAmbientLight();
+    data.ambientLight = { colour.r, colour.g, colour.b };
+    data.ambientEnabled = true;
+		return true;
+  }
+}

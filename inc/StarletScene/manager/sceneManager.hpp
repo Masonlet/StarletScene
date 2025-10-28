@@ -21,6 +21,7 @@ namespace Starlet {
       std::string basePath;
 
       bool loadScene(Serializer::SceneData& data);
+			bool saveScene(Serializer::SceneData& data);
       Scene scene;
     };
   }
