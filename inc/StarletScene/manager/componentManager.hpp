@@ -1,7 +1,7 @@
 #pragma once
 
 #include "StarletScene/component.hpp"
-#include "StarletSerializer/utils/log.hpp"
+#include "StarletLogger/logger.hpp"
 
 #include <vector>
 #include <unordered_map>
@@ -21,7 +21,7 @@ namespace Starlet::Scene {
 		template<typename T, typename... Args>
 		T* addComponent(Entity entity, Args&&... args) {
 			if (hasComponent<T>(entity)) {
-				Serializer::error("ComponentManager", "addComponent", "Entity already has this component");
+				Logger::error("ComponentManager", "addComponent", "Entity already has this component");
 				return nullptr;
 			}
 
@@ -37,7 +37,7 @@ namespace Starlet::Scene {
 			auto& components = entityComponents.at(entity);
 			auto it = components.find(typeid(T).hash_code());
 			if (it == components.end()) {
-				Serializer::error("ComponentManager", "getComponent", "Component not found for entity");
+				Logger::error("ComponentManager", "getComponent", "Component not found for entity");
 				throw std::runtime_error("Failed to get component");
 			}
 			return *static_cast<T*>(it->second.get());
@@ -47,7 +47,7 @@ namespace Starlet::Scene {
 			const auto& components = entityComponents.at(entity);
 			auto it = components.find(typeid(T).hash_code());
 			if (it == components.end()) {
-				Serializer::error("ComponentManager", "getComponent", "Component not found for entity");
+				Logger::error("ComponentManager", "getComponent", "Component not found for entity");
 				throw std::runtime_error("Failed to get component");
 			}
 			return *static_cast<const T*>(it->second.get());

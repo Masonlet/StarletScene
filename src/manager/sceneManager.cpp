@@ -1,5 +1,5 @@
 #include "StarletScene/manager/sceneManager.hpp"
-#include "StarletSerializer/utils/log.hpp"
+#include "StarletLogger/logger.hpp"
 
 #include "StarletScene/component/model.hpp"
 #include "StarletScene/component/light.hpp"
@@ -17,32 +17,32 @@
 
 namespace Starlet::Scene {
   bool SceneManager::loadTxtScene(const std::string& path) {
-    Serializer::debugLog("SceneManager", "loadTxtScene", "Started: " + path);
+    Logger::debugLog("SceneManager", "loadTxtScene", "Started: " + path);
 
     Serializer::SceneParser parser;
     Serializer::SceneData data;
     if (!parser.parse(basePath + path, data)) 
-      return Serializer::error("SceneManager", "loadTxtScene", "Failed to load scene file");
+      return Logger::error("SceneManager", "loadTxtScene", "Failed to load scene file");
 
     if (!loadScene(data))
-      return Serializer::error("SceneManager", "loadTxtScene", "Failed to load scene");
+      return Logger::error("SceneManager", "loadTxtScene", "Failed to load scene");
 
     scene.setScenePath(basePath + path);
-    return Serializer::debugLog("SceneManager", "loadTxtScene", "Finished: " + path);
+    return Logger::debugLog("SceneManager", "loadTxtScene", "Finished: " + path);
   }
 
   bool SceneManager::saveTxtScene() {
-    Serializer::debugLog("SceneManager", "saveTxtScene", "Started: " + scene.getScenePath());
+    Logger::debugLog("SceneManager", "saveTxtScene", "Started: " + scene.getScenePath());
 
     Serializer::SceneData data;
     if (!saveScene(data))
-      return Serializer::error("SceneManager", "saveTxtScene", "Failed to save scene data");
+      return Logger::error("SceneManager", "saveTxtScene", "Failed to save scene data");
 
     Serializer::Writer w;
     if (!w.writeScene(data, scene.getScenePath()))
-      return Serializer::error("SceneManager", "saveTxtScene", "Failed to save scene: " + scene.getScenePath());
+      return Logger::error("SceneManager", "saveTxtScene", "Failed to save scene: " + scene.getScenePath());
 
-    return Serializer::debugLog("SceneManager", "saveTxtScene", "Finished: " + scene.getScenePath());
+    return Logger::debugLog("SceneManager", "saveTxtScene", "Finished: " + scene.getScenePath());
   }
 
   bool SceneManager::loadScene(Serializer::SceneData& data) {
