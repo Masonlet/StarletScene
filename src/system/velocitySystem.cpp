@@ -1,12 +1,12 @@
-#include "StarletScene/system/velocitySystem.hpp"
+#include "starlet-scene/system/velocitySystem.hpp"
 
-#include "StarletScene/component/transform.hpp"
-#include "StarletScene/component/velocity.hpp"
+#include "starlet-scene/component/transform.hpp"
+#include "starlet-scene/component/velocity.hpp"
 
-#include "StarletControls/inputManager.hpp"
-#include "StarletScene/scene.hpp"
+#include "starlet-controls/inputManager.hpp"
+#include "starlet-scene/scene.hpp"
 
-#include "StarletMath/constants.hpp"
+#include "starlet-math/constants.hpp"
 
 namespace Starlet::Scene {
   void VelocitySystem::update(Scene& scene, Input::InputManager& input, const float deltaTime) {

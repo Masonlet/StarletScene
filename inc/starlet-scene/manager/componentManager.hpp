@@ -1,7 +1,7 @@
 #pragma once
 
-#include "StarletScene/component.hpp"
-#include "StarletLogger/logger.hpp"
+#include "starlet-scene/component.hpp"
+#include "starlet-logger/logger.hpp"
 
 #include <vector>
 #include <unordered_map>

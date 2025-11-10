@@ -1,6 +1,6 @@
 #pragma once
 
-#include "StarletScene/scene.hpp"
+#include "starlet-scene/scene.hpp"
 
 namespace Starlet {
   namespace Serializer {

@@ -1,7 +1,7 @@
 #pragma once
 
-#include "StarletScene/system.hpp"
-#include "StarletLogger/logger.hpp"
+#include "starlet-scene/system.hpp"
+#include "starlet-logger/logger.hpp"
 
 #include <vector>
 #include <memory>

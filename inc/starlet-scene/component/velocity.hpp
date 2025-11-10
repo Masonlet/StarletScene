@@ -1,8 +1,8 @@
 #pragma once
 
-#include "StarletScene/component.hpp"
+#include "starlet-scene/component.hpp"
 
-#include "StarletMath/vec3.hpp"
+#include "starlet-math/vec3.hpp"
 
 namespace Starlet::Scene {
 	struct VelocityComponent : public IStarComponent {

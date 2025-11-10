@@ -1,10 +1,10 @@
 #pragma once
 
-#include "StarletScene/manager/entityManager.hpp"
-#include "StarletScene/manager/componentManager.hpp"
-#include "StarletScene/manager/systemManager.hpp"
+#include "starlet-scene/manager/entityManager.hpp"
+#include "starlet-scene/manager/componentManager.hpp"
+#include "starlet-scene/manager/systemManager.hpp"
 
-#include "StarletMath/vec4.hpp"
+#include "starlet-math/vec4.hpp"
 
 namespace Starlet::Scene {
 	class Scene {

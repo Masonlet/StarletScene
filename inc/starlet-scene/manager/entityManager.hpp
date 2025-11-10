@@ -1,6 +1,6 @@
 #pragma once
 
-#include "StarletScene/entity.hpp"
+#include "starlet-scene/entity.hpp"
 
 #include <vector>
 

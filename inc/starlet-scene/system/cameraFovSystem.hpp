@@ -1,9 +1,9 @@
 #pragma once
 
-#include "StarletScene/system.hpp"
+#include "starlet-scene/system.hpp"
 
 namespace Starlet::Scene {
-	struct VelocitySystem : public ISystem {
+	struct CameraFovSystem : public ISystem {
 		void update(Scene& scene, Input::InputManager& input, const float deltaTime) override;
 	};
 }

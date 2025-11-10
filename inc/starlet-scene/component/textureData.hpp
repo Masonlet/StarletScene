@@ -1,8 +1,8 @@
 #pragma once
 
-#include "StarletScene/component.hpp"
+#include "starlet-scene/component.hpp"
 
-#include "StarletMath/vec2.hpp"
+#include "starlet-math/vec2.hpp"
 
 #include <string>
 

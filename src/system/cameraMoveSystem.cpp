@@ -1,12 +1,12 @@
-#include "StarletScene/system/cameraMoveSystem.hpp"
+#include "starlet-scene/system/cameraMoveSystem.hpp"
 
-#include "StarletScene/component/camera.hpp"
-#include "StarletScene/component/transform.hpp"
+#include "starlet-scene/component/camera.hpp"
+#include "starlet-scene/component/transform.hpp"
 
-#include "StarletControls/inputManager.hpp"
-#include "StarletScene/scene.hpp"
+#include "starlet-controls/inputManager.hpp"
+#include "starlet-scene/scene.hpp"
 
-#include "StarletMath/constants.hpp"
+#include "starlet-math/constants.hpp"
 
 #include <GLFW/glfw3.h>
 #include <cmath>

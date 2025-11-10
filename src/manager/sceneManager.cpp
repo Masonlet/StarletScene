@@ -1,19 +1,19 @@
-#include "StarletScene/manager/sceneManager.hpp"
-#include "StarletLogger/logger.hpp"
+#include "starlet-scene/manager/sceneManager.hpp"
+#include "starlet-logger/logger.hpp"
 
-#include "StarletScene/component/model.hpp"
-#include "StarletScene/component/light.hpp"
-#include "StarletScene/component/camera.hpp"
-#include "StarletScene/component/primitive.hpp"
-#include "StarletScene/component/grid.hpp"
-#include "StarletScene/component/textureData.hpp"
-#include "StarletScene/component/transform.hpp"
-#include "StarletScene/component/colour.hpp"
-#include "StarletScene/component/velocity.hpp"
+#include "starlet-scene/component/model.hpp"
+#include "starlet-scene/component/light.hpp"
+#include "starlet-scene/component/camera.hpp"
+#include "starlet-scene/component/primitive.hpp"
+#include "starlet-scene/component/grid.hpp"
+#include "starlet-scene/component/textureData.hpp"
+#include "starlet-scene/component/transform.hpp"
+#include "starlet-scene/component/colour.hpp"
+#include "starlet-scene/component/velocity.hpp"
 
-#include"StarletSerializer/parser/sceneParser.hpp"
-#include "StarletSerializer/writer/writer.hpp"
-#include "StarletSerializer/data/sceneData.hpp"
+#include"starlet-serializer/parser/sceneParser.hpp"
+#include "starlet-serializer/writer/writer.hpp"
+#include "starlet-serializer/data/sceneData.hpp"
 
 namespace Starlet::Scene {
   bool SceneManager::loadTxtScene(const std::string& path) {

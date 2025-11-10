@@ -1,6 +1,6 @@
 #pragma once
 
-#include "StarletScene/system.hpp"
+#include "starlet-scene/system.hpp"
 
 namespace Starlet::Scene {
 	struct CameraLookSystem : public ISystem {
