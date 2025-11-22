@@ -2,7 +2,7 @@
 
 #include "starlet-scene/component.hpp"
 
-#include "starlet-graphics/resource/resourceHandle.hpp"
+#include "starlet-graphics/resource/resource_handle.hpp"
 
 #include "starlet-math/vec2.hpp"
 

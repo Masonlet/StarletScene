@@ -1,9 +1,9 @@
-#include "starlet-scene/system/cameraLookSystem.hpp"
+#include "starlet-scene/system/camera_look_system.hpp"
 
 #include "starlet-scene/component/camera.hpp"
 #include "starlet-scene/component/transform.hpp"
 
-#include "starlet-controls/inputManager.hpp"
+#include "starlet-controls/input_manager.hpp"
 #include "starlet-scene/scene.hpp"
 
 #include <GLFW/glfw3.h>

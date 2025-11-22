@@ -1,9 +1,9 @@
-#include "starlet-scene/system/cameraMoveSystem.hpp"
+#include "starlet-scene/system/camera_move_system.hpp"
 
 #include "starlet-scene/component/camera.hpp"
 #include "starlet-scene/component/transform.hpp"
 
-#include "starlet-controls/inputManager.hpp"
+#include "starlet-controls/input_manager.hpp"
 #include "starlet-scene/scene.hpp"
 
 #include "starlet-math/constants.hpp"
